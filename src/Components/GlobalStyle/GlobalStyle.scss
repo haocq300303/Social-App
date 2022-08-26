@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Candal&display=swap');
 
 :root {
-   --primay-color: #1877F2;
+   --primary-color: #1877F2;
    --noti-color: #FF4154;
    --input-color: #F4F5F8;
    --background: #F7F8FA;
+   --hover: rgba(68, 73, 80, 0.15);
+   --font-logo: 'Candal', sans-serif;
+   --width-btn-search: 52px;
 }
 
 * {
@@ -23,6 +27,8 @@ body {
    line-height: 1.5rem;
    text-rendering: optimizeSpeed;
    overflow-y: overlay;
+   background-color: var(--background);
+   height: 100vh;
 }
 
 // ScrollBar

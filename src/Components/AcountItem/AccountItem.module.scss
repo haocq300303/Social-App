@@ -1,0 +1,44 @@
+.wrapper {
+   position: relative;
+   display: flex;
+   align-items: center;
+   padding: 8px;
+   border-radius: 10px;
+   transition: all 0.1s linear;
+
+   &:hover {
+      background-color: var(--hover);
+      cursor: pointer;
+   }
+
+   .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      object-fit: cover;
+   }
+
+   .username {
+      margin-left: 10px;
+      font-weight: 500;
+   }
+
+   .btn-more {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+      font-size: 2.4rem;
+      color: #555;
+      border-radius: 50%;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:hover {
+         background-color: #fff;
+      }
+   }
+}
