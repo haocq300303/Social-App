@@ -1,0 +1,156 @@
+#flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-header {
+  position: relative;
+  @extend #flex-center;
+  border-bottom: 2px solid #ccc;
+
+  .header-heading {
+    padding: 2rem;
+  }
+
+  .close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--hover);
+    @extend #flex-center;
+    font-size: 2rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+}
+
+.modal-body {
+  padding: 1.6rem;
+
+  .modal-info {
+    @extend #flex-center;
+    justify-content: left;
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    .username {
+      font-weight: 600;
+      margin-left: 1rem;
+    }
+  }
+
+  .modal-content {
+    position: relative;
+    margin-top: 1.6rem;
+
+    .desc {
+      width: 100%;
+      resize: none;
+      border: none;
+      outline: none;
+      background-color: #fff;
+      font-size: 2rem;
+      padding: 0 0.8rem;
+
+      &::placeholder {
+        color: #666;
+        font-size: 2rem;
+        font-family: var(--font-roboto);
+      }
+    }
+
+    .icon {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      bottom: -5.4rem;
+      z-index: 10;
+
+      .icon-image,
+      .icon-file,
+      .icon-smile {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 2.5rem;
+        @extend #flex-center;
+
+        &:hover {
+          background-color: var(--hover);
+          cursor: pointer;
+        }
+      }
+
+      .icon-image {
+        margin-right: 0.5rem;
+        color: #00a400;
+      }
+
+      .icon-smile {
+        color: #f5c33b;
+      }
+
+      .icon-file {
+        color: #666;
+      }
+    }
+
+    .icon .actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .image {
+      position: relative;
+      max-width: 500px;
+      z-index: 0;
+      img {
+        width: 100%;
+        border-radius: 1rem;
+      }
+
+      .close-image {
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #fff;
+        @extend #flex-center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ccc;
+        }
+      }
+    }
+  }
+}
+.btn-post {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  font-family: var(--font-roboto);
+  color: #fff;
+  margin-top: 7.2rem;
+  @extend #flex-center;
+  background-color: var(--primary-color);
+  border-radius: 1rem;
+  cursor: pointer;
+}

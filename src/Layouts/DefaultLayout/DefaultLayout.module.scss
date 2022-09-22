@@ -1,8 +1,11 @@
-.wrapper {}
-
 .container {
-   display: flex;
-   max-width: 1400px;
-   height: 100vh;
-   margin: 56px auto 0;
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 76px;
+}
+
+.slidebar {
+  width: 210px;
+  margin: 0 30px;
 }

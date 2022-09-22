@@ -1,0 +1,107 @@
+#flex {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+#popperWrapper {
+   position: relative;
+   width: 118px;
+   height: 185px;
+   border-radius: 10px;
+   overflow: hidden;
+   cursor: pointer;
+}
+
+.wrapper {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   grid-column-gap: 10px;
+}
+
+.create-story {
+   @extend #popperWrapper;
+
+   .background {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+   }
+}
+
+.body-story {
+   position: absolute;
+   text-align: center;
+   width: 100%;
+   bottom: 10px;
+
+   .btn-create {
+      @extend #flex;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+      padding: 2px;
+      margin: 0 auto;
+
+      .icon {
+         @extend #flex;
+         font-size: 1.4rem;
+         width: 20px;
+         height: 20px;
+         color: var(--primary-color);
+         font-weight: 600;
+         background-color: #fff;
+         border-radius: 5px;
+         cursor: pointer;
+      }
+   }
+
+   .title {
+      font-size: 1.2rem;
+      color: #fff;
+      font-weight: 600;
+      margin-top: 10px;
+   }
+}
+
+.story-item {
+   @extend #popperWrapper;
+
+   .item-background {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+   }
+
+   .avatar {
+      position: absolute;
+      @extend #flex;
+      left: 10px;
+      top: 10px;
+      width: 30px;
+      height: 30px;
+      padding: 2px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+
+      img {
+         width: 100%;
+         height: 100%;
+         border-radius: 5px;
+      }
+   }
+
+   .username {
+      position: absolute;
+      width: 100%;
+      bottom: 10px;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #fff;
+      font-weight: 600;
+   }
+
+}

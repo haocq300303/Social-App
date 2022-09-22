@@ -1,11 +1,13 @@
 const routes = {
-   login: '/login',
-   register: '/register',
-   home: '/',
-   profile: '/:username',
-   chat: '/chat',
-   stories: '/stories',
-   setting: '/setting'
-}
+  login: "/login",
+  register: "/register",
+  home: "/",
+  profile: "/profile/:userId",
+  chat: "/chat",
+  stories: "/stories",
+  gaming: "/gaming",
+  setting: "/setting",
+  notfound: "/notfound",
+};
 
 export default routes;

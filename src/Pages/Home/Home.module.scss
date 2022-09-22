@@ -1,0 +1,37 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+}
+
+.feed {
+  position: relative;
+  width: 630px;
+  height: calc(100vh - 76px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 1px;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.loading {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -100px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+
+  &.active {
+    top: 20px;
+  }
+}

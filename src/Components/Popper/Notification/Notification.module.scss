@@ -1,0 +1,53 @@
+.notifications {
+   width: 340px;
+}
+
+.noti-header {
+   font-size: 2.4rem;
+   font-weight: 600;
+   margin: 10px;
+}
+
+.noti-item {
+   position: relative;
+   display: flex;
+   align-items: center;
+   padding: 10px;
+   border-radius: 10px;
+
+   &:hover {
+      background-color: var(--hover);
+      cursor: pointer;
+   }
+
+   .item-avatar img {
+      width: 56px;
+      height: 56px;
+      border-radius: 25%;
+      object-fit: cover;
+   }
+
+   .item-content {
+      margin-left: 15px;
+      line-height: 1.8rem;
+
+      p {
+         margin-bottom: 4px;
+      }
+
+      span {
+         font-weight: 500;
+         color: var(--primary-color);
+      }
+   }
+
+   .item-check {
+      position: absolute;
+      right: 10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+   }
+
+}

@@ -1,55 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Candal&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Candal&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap");
 
 :root {
-   --primary-color: #1877F2;
-   --noti-color: #FF4154;
-   --input-color: #F4F5F8;
-   --background: #F7F8FA;
-   --hover: rgba(68, 73, 80, 0.15);
-   --font-logo: 'Candal', sans-serif;
-   --width-btn-search: 52px;
+  --primary-color: #1877f2;
+  --noti-color: #ff4154;
+  --input-color: #f4f5f8;
+  --background: #f7f8fa;
+  --hover: rgba(68, 73, 80, 0.15);
+  --font-logo: "Candal", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --width-btn-search: 52px;
 }
 
 * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-   font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-   font-family: 'DM Sans', sans-serif;
-   font-size: 1.6rem;
-   line-height: 1.5rem;
-   text-rendering: optimizeSpeed;
-   overflow-y: overlay;
-   background-color: var(--background);
-   height: 100vh;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5rem;
+  text-rendering: optimizeSpeed;
+  background-color: var(--background);
 }
 
 // ScrollBar
 html *::-webkit-scrollbar {
-   border-radius: 0;
-   width: 8px;
+  border-radius: 0;
+  width: 8px;
 }
 
 html *::-webkit-scrollbar-thumb {
-   border-radius: 4px;
-   background-color: rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 html *::-webkit-scrollbar-track {
-   border-radius: 0;
-   background-color: rgba(0, 0, 0, 0);
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 input,
 button,
 [tabindex] {
-   border: none;
-   outline: none;
+  border: none;
+  outline: none;
 }

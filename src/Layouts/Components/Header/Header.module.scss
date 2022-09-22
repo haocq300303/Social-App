@@ -1,128 +1,132 @@
 #flex {
-   display: flex;
-   justify-content: center;
-   align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wrapper {
-   position: fixed;
-   top: 0;
-   left: 0;
-   right: 0;
-   @extend #flex;
-   height: 56px;
-   background-color: #fff;
-   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
-   z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  @extend #flex;
+  height: 56px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
+  z-index: 999;
 }
 
 .inner {
-   @extend #flex;
-   justify-content: space-between;
-   width: 1400px;
-   margin: 0 auto;
+  @extend #flex;
+  justify-content: space-between;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .logo {
-   @extend #flex;
-   text-decoration: none;
+  @extend #flex;
+  text-decoration: none;
 
-   img {
-      width: 35px;
-      height: 35px;
-      border-radius: 10px;
-      object-fit: cover;
-   }
+  img {
+    width: 35px;
+    height: 35px;
+    border-radius: 25%;
+    object-fit: cover;
+  }
 
-   p {
-      font-size: 2rem;
-      font-family: var(--font-logo);
-      color: var(--primary-color);
-      margin-left: 10px;
-      @extend #flex;
-   }
+  p {
+    font-size: 2rem;
+    font-family: var(--font-logo);
+    color: var(--primary-color);
+    margin-left: 10px;
+    @extend #flex;
+  }
 }
 
 .actions {
-   @extend #flex;
+  @extend #flex;
 
-   .btn-message,
-   .btn-notifi {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      font-size: 2rem;
-      @extend #flex;
-      background-color: #e4e6eb;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.1s ease-in;
+  .btn-message,
+  .btn-notifi {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
+    @extend #flex;
+    background-color: #e4e6eb;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
 
-      &:hover {
-         background-color: #d8dae0;
-      }
-   }
+    &:hover {
+      background-color: #d8dae0;
+    }
 
-   .btn-notifi {
-      margin: 0 10px;
-   }
+    &.active {
+      background-color: #e7f3ff;
+      color: #1877f2;
+    }
+  }
 
-   .quantity {
-      position: absolute;
-      top: -6px;
-      right: -4px;
-      @extend #flex;
-      width: 19px;
-      height: 19px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #fff;
-      border-radius: 50%;
-      background-color: #e41e3f;
-   }
+  .btn-notifi {
+    margin: 0 10px;
+  }
 
+  .quantity {
+    position: absolute;
+    top: -6px;
+    right: -4px;
+    @extend #flex;
+    width: 19px;
+    height: 19px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 50%;
+    background-color: #e41e3f;
+  }
 }
 
 .avatar {
-   position: relative;
+  position: relative;
 
-   &::before {
-      position: absolute;
-      content: "";
-      width: 100%;
-      height: 100%;
-      background-color: #d8dae0;
-      border-radius: 10px;
-      opacity: 0.3;
-      transition: all 0.2s ease-in;
-      display: none;
-   }
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #d8dae0;
+    border-radius: 10px;
+    opacity: 0.3;
+    transition: all 0.2s ease-in;
+    display: none;
+  }
 
-   &:hover::before {
-      display: block;
-      cursor: pointer;
-   }
+  &:hover::before {
+    display: block;
+    cursor: pointer;
+  }
 
-   img {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      object-fit: cover;
-      cursor: pointer;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+  }
 
-   }
-
-   .icon-arrow {
-      position: absolute;
-      @extend #flex;
-      bottom: -1px;
-      right: -1px;
-      width: 15px;
-      height: 15px;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      background-color: #e8e8e8;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-      cursor: pointer;
-   }
+  .icon-arrow {
+    position: absolute;
+    @extend #flex;
+    bottom: -1px;
+    right: -1px;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background-color: #e8e8e8;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    cursor: pointer;
+  }
 }

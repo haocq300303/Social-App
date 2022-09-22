@@ -1,0 +1,47 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+  margin: 20px 0;
+}
+
+.avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.create-input {
+  flex: 1;
+  padding: 10px;
+  font-family: var(--roboto);
+  font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn-post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+
+  .icon-share {
+    font-size: 1.6rem;
+  }
+
+  .btn-text {
+    font-weight: 600;
+    margin-left: 5px;
+  }
+}

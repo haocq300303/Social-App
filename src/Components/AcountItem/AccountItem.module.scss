@@ -1,44 +1,39 @@
 .wrapper {
-   position: relative;
-   display: flex;
-   align-items: center;
-   padding: 8px;
-   border-radius: 10px;
-   transition: all 0.1s linear;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 10px;
+  transition: all 0.1s linear;
 
-   &:hover {
-      background-color: var(--hover);
-      cursor: pointer;
-   }
+  &:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+  }
 
-   .avatar {
+  .avatar {
+    position: relative;
+
+    img {
       width: 40px;
       height: 40px;
-      border-radius: 10px;
+      border-radius: 25%;
       object-fit: cover;
-   }
+    }
 
-   .username {
-      margin-left: 10px;
-      font-weight: 500;
-   }
-
-   .btn-more {
+    .online {
       position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      right: 8px;
-      width: 36px;
-      height: 36px;
-      font-size: 2.4rem;
-      color: #555;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
-      background-color: transparent;
-      cursor: pointer;
+      bottom: -1px;
+      right: -1px;
+      background-color: #31a24c;
+    }
+  }
 
-      &:hover {
-         background-color: #fff;
-      }
-   }
+  .username {
+    margin-left: 10px;
+    font-weight: 500;
+  }
 }
