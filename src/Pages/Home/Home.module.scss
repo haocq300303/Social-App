@@ -2,19 +2,15 @@
   display: flex;
   justify-content: space-between;
   margin-right: 30px;
+  width: 100%;
+  width: 900px;
 }
 
 .feed {
   position: relative;
   width: 630px;
   height: calc(100vh - 76px);
-  overflow-y: scroll;
-  overflow-x: hidden;
   padding: 1px;
-
-  &::-webkit-scrollbar {
-    width: 0;
-  }
 }
 
 .loading {
@@ -30,6 +26,8 @@
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
   &.active {
     top: 20px;

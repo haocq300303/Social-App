@@ -10,28 +10,6 @@
     background-color: var(--hover);
     cursor: pointer;
   }
-
-  .avatar {
-    position: relative;
-
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 25%;
-      object-fit: cover;
-    }
-
-    .online {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      bottom: -1px;
-      right: -1px;
-      background-color: #31a24c;
-    }
-  }
-
   .username {
     margin-left: 10px;
     font-weight: 500;

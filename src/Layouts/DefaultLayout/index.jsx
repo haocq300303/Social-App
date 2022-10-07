@@ -1,28 +1,42 @@
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../Components/Header/Header";
 import Slidebar from "./Slidebar/Slidebar";
-
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./DefaultLayout.module.scss";
 
 const cx = classNames.bind(styles);
 
-const defaultLayout = ({ children }) => {
-   return (
-      <div className={cx("wrapper")}>
-         <Header />
-         <main className={cx("container")}>
-            <aside className={cx("slidebar")}><Slidebar /></aside>
-            <article className={cx("content")}>
-               {children}
-            </article>
-         </main>
-      </div>
-   )
+const DefaultLayout = ({ children }) => {
+  const [active, setActive] = useState(false);
+  const location = useLocation();
+  const url = location.pathname.slice(0, 8);
+
+  useEffect(() => {
+    if (url === "/profile") {
+      return setActive(true);
+    }
+    setActive(false);
+  }, [url]);
+
+  return (
+    <div className={cx("wrapper")}>
+      <Header />
+      <main className={cx("container")}>
+        <aside className={cx("slidebar")}>
+          <Slidebar active={active} setActive={setActive} />
+        </aside>
+        <article className={active ? cx("content", "active") : cx("content")}>
+          {children}
+        </article>
+      </main>
+    </div>
+  );
 };
 
-defaultLayout.propTypes = {
-   children: PropTypes.node
+DefaultLayout.propTypes = {
+  children: PropTypes.node,
 };
 
-export default defaultLayout;
+export default DefaultLayout;

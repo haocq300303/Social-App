@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   display: flex;
   max-width: 1200px;
   margin: 0 auto;
@@ -7,5 +8,15 @@
 
 .slidebar {
   width: 210px;
+  position: fixed;
+  top: 76px;
   margin: 0 30px;
+  z-index: 1;
+}
+
+.content {
+  padding-left: 270px;
+  &.active {
+    padding-left: 130px;
+  }
 }

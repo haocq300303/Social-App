@@ -29,7 +29,7 @@ const Header = () => {
   const [seenMessage, setSeenMessage] = useState(true);
   const [seenNoti, setSeenNoti] = useState(true);
 
-  const { avatar } = useSelector((state) => state.user.value);
+  const { avatar } = useSelector((state) => state.user.data);
 
   return (
     <header className={cx("wrapper")}>

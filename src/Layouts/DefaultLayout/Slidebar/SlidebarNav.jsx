@@ -13,7 +13,7 @@ import styles from "./Slidebar.module.scss";
 const cx = classnames.bind(styles);
 
 const SlidebarNav = () => {
-  const { _id } = useSelector((state) => state.user.value);
+  const { _id } = useSelector((state) => state.user.data);
   const arrPath = [
     routes.home,
     `/profile/${_id}`,
@@ -22,6 +22,7 @@ const SlidebarNav = () => {
     routes.gaming,
     routes.setting,
   ];
+
   return (
     <div className={cx("slidebar-nav")}>
       <div className={cx("nav-menu")}>

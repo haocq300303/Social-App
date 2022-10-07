@@ -12,14 +12,16 @@
 }
 
 #title {
-  font-size: 2rem;
+  font-size: 2.4rem;
   margin-bottom: 20px;
+  font-family: var(--font-roboto);
 }
 
 .wrapper {
   position: relative;
-  width: 900px;
+  width: 1030px;
   margin-right: 30px;
+  transition: all 0.2s linear;
 }
 
 .header {
@@ -121,7 +123,8 @@
 }
 
 .content-aside {
-  width: 300px;
+  width: 430px;
+  flex-grow: 1;
   margin-bottom: 20px;
 }
 
@@ -132,6 +135,7 @@
 
 .intro {
   @extend #popperWrapper;
+  width: 430px;
   .intro-title {
     @extend #title;
   }
@@ -142,7 +146,7 @@
     padding: 10px 0;
 
     .intro-item_icon {
-      font-size: 2.4rem;
+      font-size: 3rem;
       color: #8090a9;
       margin-right: 10px;
     }
@@ -166,9 +170,11 @@
     width: 100%;
     font-family: var(--font-roboto);
     color: #3b3b3b;
-    padding: 10px;
+    padding: 0 10px;
     border-radius: 10px;
     text-align: center;
+    font-size: 1.5rem;
+    line-height: 36px;
     font-weight: 600;
     background-color: #e4e6eb;
     margin: 20px 0;
@@ -184,8 +190,8 @@
   }
 
   .intro-featured .featured-img img {
-    width: 77.5px;
-    height: 150px;
+    width: 123.33px;
+    height: 200px;
     border-radius: 10px;
     object-fit: cover;
     cursor: pointer;
@@ -208,8 +214,8 @@
     grid-gap: 10px;
 
     img {
-      width: 80px;
-      height: 80px;
+      width: 123.33px;
+      height: 123.33px;
       border-radius: 10px;
       object-fit: cover;
       cursor: pointer;
@@ -231,15 +237,15 @@
 
   .friend-item {
     .item-avatar img {
-      width: 80px;
-      height: 80px;
+      width: 123.33px;
+      height: 123.33px;
       border-radius: 10px;
       object-fit: cover;
       cursor: pointer;
     }
 
     .item-username {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 600;
       margin-top: 5px;
     }
@@ -259,6 +265,8 @@
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
   &.active {
     top: 30px;

@@ -1,31 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
-  like: null,
+  like: {
+    quantity: null,
+    liked: false,
+  },
   comment: {
     quantity: null,
     data: [],
   },
-  share: null,
+  share: {
+    quantity: null,
+    data: [],
+  },
 };
+
+export const likePost = createAsyncThunk(
+  "post/likePost",
+  async (idPost, userId) => {
+    const res = await axios.put(
+      `http://localhost:8080/api/posts/${idPost}/like`,
+      {
+        userId,
+      }
+    );
+    return res.data.quantity;
+  }
+);
 
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {
-    likePost: (state, action) => {
-      state.like = action.payload;
-    },
-    commentPost: (state, action) => {
-      state.comment.quantity = action.payload.qunatity;
-      state.comment.data.push(action.payload);
-    },
-    sharePost: (state, action) => {
-      state.like = action.payload;
-    },
+  extraReducers(builder) {
+    builder
+      .addCase(likePost.pending, (state) => {
+        state.like.liked = false;
+      })
+      .addCase(likePost.fulfilled, (state, action) => {
+        state.like.quantity = action.payload;
+        state.like.liked = true;
+      });
   },
 });
-
-export const { likePost, commentPost, sharePost } = postSlice.actions;
 
 export default postSlice.reducer;

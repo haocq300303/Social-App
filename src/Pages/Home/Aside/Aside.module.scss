@@ -8,6 +8,10 @@
   width: 240px;
   height: calc(100vh - 76px);
   margin-left: 30px;
+  // position: fixed;
+  // top: 76px;
+  // right: 193px;
+  z-index: 1;
 }
 
 .aside-header {
@@ -108,7 +112,7 @@
       rgb(0 0 0 / 6%) 0px 1px 2px 0px;
     padding: 10px;
     border-radius: 10px;
-    overflow-y: scroll;
     margin-bottom: 5px;
+    overflow: overlay;
   }
 }

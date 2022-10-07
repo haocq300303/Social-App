@@ -26,7 +26,7 @@ const ProfileIntro = ({ data }) => {
       <div className={cx("intro-featured")}>
         <div className={cx("featured-img")}>
           <img
-            src="https://scontent.fhan2-1.fna.fbcdn.net/v/t15.5256-10/293976901_1447697479060108_1972709000216760471_n.jpg?stp=dst-jpg_p296x100&_nc_cat=103&ccb=1-7&_nc_sid=ad6a45&_nc_ohc=a7-RLpC2mTsAX8PZjwu&_nc_oc=AQmu8StyxlyprQRe9EOh7OSNYyrp5HvzkkfC7r0sgKQ4GjLXPsvQV14HiamKT8iePH4&_nc_ht=scontent.fhan2-1.fna&oh=00_AT-HQJGbUdC8AVqp6UutdwYKxI7NcBqRuKlC8jU4aJB97w&oe=631B0762"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMHjJI6n0gOX8eHiChogFXHkZGjfen22lSvg&usqp=CAU"
             alt="img"
           />
           <img

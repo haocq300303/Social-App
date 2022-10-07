@@ -6,7 +6,7 @@ import styles from "./Slidebar.module.scss";
 
 const cx = classnames.bind(styles);
 const SlidebarProfile = () => {
-  const { avatar, username, email } = useSelector((state) => state.user.value);
+  const { avatar, username, email } = useSelector((state) => state.user.data);
   return (
     <div className={cx("slidebar-profile")}>
       <div className={cx("profile-avatar")}>

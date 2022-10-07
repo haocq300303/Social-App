@@ -22,10 +22,10 @@ const cx = classnames.bind(styles);
 const Profile = () => {
   const [infoUser, setInfoUser] = useState({});
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const { userId } = useParams();
-  const currentUser = useSelector((state) => state.user.value);
+  const currentUser = useSelector((state) => state.user.data);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -61,7 +61,7 @@ const Profile = () => {
 
   return (
     <div className={cx("wrapper")}>
-      {!loading && (
+      {!isLoading && (
         <div>
           <div className={cx("header")}>
             <div className={cx("header-background")}>
@@ -143,23 +143,36 @@ const Profile = () => {
             </div>
             <div className={cx("content-body")}>
               {currentUser._id === userId ? (
-                <div onClick={() => setOpen(true)}>
-                  <CreatePost avatar={infoUser.avatar} />
+                <div onClick={() => setOpenModal(true)}>
+                  <CreatePost
+                    avatar={infoUser.avatar}
+                    username={infoUser.username}
+                  />
                 </div>
               ) : (
                 ""
               )}
               {posts.map((post) => (
-                <Post key={post._id} data={post} />
+                <Post
+                  key={post._id}
+                  data={post}
+                  currentUserId={currentUser._id}
+                />
               ))}
             </div>
           </div>
-          {open && (
-            <ModalPost open={open} setOpen={setOpen} avatar={infoUser.avatar} />
-          )}
         </div>
       )}
-      <div className={loading ? cx("loading", "active") : cx("loading")}>
+      {openModal && (
+        <ModalPost
+          open={openModal}
+          setOpen={setOpenModal}
+          avatar={infoUser.avatar}
+          username={infoUser.username}
+          typeCreate={true}
+        />
+      )}
+      <div className={isLoading ? cx("loading", "active") : cx("loading")}>
         <CircularProgress size={30} />
       </div>
     </div>

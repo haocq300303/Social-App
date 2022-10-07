@@ -11,10 +11,14 @@ const AsideContact = () => {
         <span>8</span>
       </div>
       <div className={cx("contact-body")}>
-        <AccountItem online={true} avatar="" username="Hao Quang Chu" />
-        <AccountItem online={true} avatar="" username="Hanh Le" />
-        <AccountItem online={true} avatar="" username="Hung Manh" />
-        <AccountItem online={true} avatar="" username="Duong Manh Dat" />
+        <AccountItem avatar="" username="Hao Quang Chu" isOnline={true} />
+        <AccountItem avatar="" username="Hanh Le" isOnline={true} />
+        <AccountItem avatar="" username="Hung Manh" isOnline={true} />
+        <AccountItem avatar="" username="Duong Manh Dat" isOnline={true} />
+        <AccountItem avatar="" username="Duong Manh Dat" isOnline={true} />
+        <AccountItem avatar="" username="Duong Manh Dat" isOnline={true} />
+        <AccountItem avatar="" username="Duong Manh Dat" isOnline={true} />
+        <AccountItem avatar="" username="Duong Manh Dat" isOnline={true} />
       </div>
     </div>
   );

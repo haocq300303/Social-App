@@ -5,7 +5,7 @@ import classnames from "classnames/bind";
 import styles from "./CreatePost.module.scss";
 
 const cx = classnames.bind(styles);
-const CreatePost = ({ avatar }) => {
+const CreatePost = ({ avatar, username }) => {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("avatar")}>
@@ -14,7 +14,7 @@ const CreatePost = ({ avatar }) => {
       <input
         className={cx("create-input")}
         type="text"
-        placeholder="What's on your mind, Hao?"
+        placeholder={`What's on your mind, ${username}?`}
       />
       <button className={cx("btn-post")}>
         <span className={cx("icon-share")}>
@@ -28,6 +28,7 @@ const CreatePost = ({ avatar }) => {
 
 CreatePost.propTypes = {
   avatar: PropTypes.string,
+  username: PropTypes.string,
 };
 
 export default CreatePost;
