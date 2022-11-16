@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useDebounce from "../../../Hooks/useDebounce";
-import axios from "axios";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
 import { IoMdSearch } from "react-icons/io";
@@ -10,6 +9,7 @@ import MessageSearch from "./MessageSearch";
 import MessageListFriend from "./MessageListFriend";
 import classNames from "classnames/bind";
 import styles from "./Message.module.scss";
+import { searchUser } from "../../../Services/userService";
 
 const cx = classNames.bind(styles);
 
@@ -27,10 +27,8 @@ const Message = ({ children, data = [], show, setShow, setActiveMessage }) => {
     }
     const fetchApi = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:8080/api/users/search/${debounce}`
-        );
-        setResultSearch(res.data);
+        const data = await searchUser(debounce);
+        setResultSearch(data);
       } catch (error) {
         console.log(error);
       }

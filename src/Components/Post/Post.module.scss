@@ -30,6 +30,12 @@
     width: 40px;
     height: 40px;
     margin-right: 10px;
+    transition: all 0.1s linear;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.9;
+    }
 
     img {
       width: 100%;
@@ -50,6 +56,10 @@
     color: #000;
     font-size: 1.6rem;
     font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .time {
@@ -79,6 +89,7 @@
 }
 
 .images {
+  cursor: pointer;
   img {
     width: 100%;
     max-height: 500px;
@@ -96,8 +107,8 @@
     @extend #flex-center;
 
     .icon-heart {
-      width: 25px;
-      height: 25px;
+      width: 20px;
+      height: 20px;
       color: red;
       margin-right: 5px;
     }
@@ -120,7 +131,7 @@
     @extend #flex-center;
     width: 150px;
     padding: 10px 10px;
-    font-size: 2rem;
+    font-size: 1.6rem;
     border-radius: 10px;
     margin: 5px 0px;
 
@@ -139,8 +150,8 @@
 
   .like span {
     color: var(--noti-color);
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 }
 .feature-post {
@@ -170,33 +181,6 @@
   }
 }
 
-.modal-header {
-  position: relative;
-  @extend #flex-center;
-  border-bottom: 2px solid #ccc;
-
-  .header-heading {
-    padding: 2rem;
-  }
-}
-
-.modal-body {
-  padding: 10px;
-
-  .modal-content {
-    padding: 20px 10px 30px;
-  }
-
-  .btn-confirm {
-    display: flex;
-    justify-content: flex-end;
-
-    .btn-delete {
-      margin-right: 10px;
-    }
-  }
-}
-
 .comments {
   border-top: 2px solid #ddd;
   .write-comments {
@@ -207,6 +191,7 @@
     .input-comments {
       flex-grow: 1;
       padding: 12px 15px;
+      padding-right: 60px;
       background-color: #f0f2f5;
       margin-left: 10px;
       border-radius: 25px;
@@ -229,64 +214,17 @@
 
   .list-comments {
     margin-top: 10px;
-    .item-comments {
-      display: flex;
-      margin-bottom: 10px;
 
-      &:last-child {
-        padding-bottom: 10px;
-      }
-
-      .item-body {
-        margin-left: 10px;
-        flex-grow: 1;
-      }
-      .item-body-content {
-        background-color: #f0f2f5;
-        padding: 10px;
-        border-radius: 15px;
-      }
-
-      .item-reply {
-        display: flex;
-        margin-top: 10px;
-      }
-
-      & .body-username {
-        font-size: 15px;
-        margin-bottom: 5px;
-      }
-
-      & .body-para {
-        font-size: 14px;
-      }
+    .icon-loading {
+      @extend #flex-center;
+      padding: 10px 0 20px;
     }
-    .item-body .body-actions {
-      display: flex;
-      align-items: center;
-      margin-top: 5px;
+  }
 
-      .actions-like,
-      .actions-reply {
-        @extend #flex-center;
-        font-size: 18px;
-        margin-right: 15px;
-        span {
-          font-size: 14px;
-          margin-left: 5px;
-        }
-
-        &:hover {
-          cursor: pointer;
-          text-decoration: underline;
-          color: var(--primary-color);
-        }
-      }
-      .time-comment {
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--primary-color);
-      }
-    }
+  .not-comment {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px 0 20px;
   }
 }

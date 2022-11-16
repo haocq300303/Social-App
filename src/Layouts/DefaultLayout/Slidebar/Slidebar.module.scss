@@ -10,6 +10,15 @@
   align-items: center;
 }
 
+@keyframes resizer {
+  from {
+    width: 70px;
+  }
+  to {
+    width: 210px;
+  }
+}
+
 .wrapper {
   @extend #flex-columns;
   background-color: #fff;
@@ -17,10 +26,9 @@
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  animation: reverse 1s linear;
 
   &.active {
-    width: 70px;
-
     .profile-info,
     .title,
     .shortcuts-item_title {

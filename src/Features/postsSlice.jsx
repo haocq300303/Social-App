@@ -1,34 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
+import { getAllPost } from "../Services/postService";
 const initialState = {
   posts: [],
   isLoading: false,
+  isLoadingDelete: false,
 };
 
 export const getPosts = createAsyncThunk("posts/getposts", async (userId) => {
-  const res = await axios.post("http://localhost:8080/api/posts/timeline/all", {
-    userId: userId,
-  });
-  return res.data;
+  const data = await getAllPost(userId);
+  return data;
 });
-
-// export const getPostsForUser = createAsyncThunk(
-//   "posts/getposts",
-//   async (userId) => {
-//     const res = await axios.post(
-//       "http://localhost:8080/api/posts/timeline/all",
-//       {
-//         userId: userId,
-//       }
-//     );
-//     return res.data;
-//   }
-// );
 
 const postsSlice = createSlice({
   name: "posts",
   initialState,
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(getPosts.pending, (state) => {

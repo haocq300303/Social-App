@@ -1,10 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
+import { login } from "../../Services/userService";
 import { useDispatch } from "react-redux";
-import { changeUser } from "../../Features/userSlice";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { getInfoUser } from "../../Features/userSlice";
+import { useNavigate, Link } from "react-router-dom";
 import routes from "../../Config/routes";
+import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { schemaLogin } from "../../Schemas";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -15,31 +15,24 @@ import styles from "../Register/Auth.module.scss";
 
 const cx = classnames.bind(styles);
 const Login = () => {
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispath = useDispatch();
 
   const onSubmit = async (values) => {
     setLoading(true);
-    try {
-      const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        values
-      );
+    const data = await login(values);
+    if (data && data.success === false) {
+      toast.error("Login failed!!");
       setLoading(false);
-      dispath(changeUser(res.data));
-      navigate(`${routes.home}`);
-    } catch (error) {
-      if (error.response.data.status === 404) {
-        setErrorEmail(error.response.data.message);
-        setErrorPassword("");
-      } else {
-        setErrorPassword(error.response.data.message);
-        setErrorEmail("");
-      }
+      return;
     }
+    setLoading(false);
+    toast.success("Login successfully!!");
+    dispath(getInfoUser(data._id));
+    setTimeout(() => {
+      navigate(`${routes.home}`);
+    }, 1500);
   };
 
   const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -70,11 +63,9 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Enter your email"
-                className={errors.email || errorEmail ? cx("input-error") : ""}
+                className={errors.email ? cx("input-error") : ""}
               />
-              <span className={cx("error-text")}>
-                {errors.email || errorEmail || ""}
-              </span>
+              <span className={cx("error-text")}>{errors.email || ""}</span>
             </div>
 
             {/* password */}
@@ -87,13 +78,9 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Enter your password"
-                className={
-                  errors.password || errorPassword ? cx("input-error") : ""
-                }
+                className={errors.password ? cx("input-error") : ""}
               />
-              <span className={cx("error-text")}>
-                {errors.password || errorPassword || ""}
-              </span>
+              <span className={cx("error-text")}>{errors.password || ""}</span>
             </div>
             <button type="submit" className={cx("form-btn")}>
               {loading ? (

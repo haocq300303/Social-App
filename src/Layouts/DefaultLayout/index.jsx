@@ -24,8 +24,8 @@ const DefaultLayout = ({ children }) => {
     <div className={cx("wrapper")}>
       <Header />
       <main className={cx("container")}>
-        <aside className={cx("slidebar")}>
-          <Slidebar active={active} setActive={setActive} />
+        <aside className={active ? cx("slidebar", "active") : cx("slidebar")}>
+          <Slidebar active={active} />
         </aside>
         <article className={active ? cx("content", "active") : cx("content")}>
           {children}

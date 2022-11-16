@@ -12,6 +12,10 @@
   top: 76px;
   margin: 0 30px;
   z-index: 1;
+
+  &.active {
+    width: 70px;
+  }
 }
 
 .content {

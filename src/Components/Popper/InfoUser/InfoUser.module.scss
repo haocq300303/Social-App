@@ -1,0 +1,92 @@
+.wrapper {
+  padding: 12px;
+  width: 324px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  margin-left: 20px;
+
+  .username {
+    margin: 0 0 5px 5px;
+    font-size: 2rem;
+  }
+
+  .link-username {
+    text-decoration: none;
+    color: #000;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .info {
+    list-style: none;
+  }
+
+  .info-item {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      font-size: 2.4rem;
+      margin-right: 10px;
+    }
+
+    .desc {
+      line-height: 2rem;
+      font-size: 1.6rem;
+    }
+
+    strong {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .btn-follow,
+  .btn-message {
+    padding: 10px 25px;
+    background-color: #e0e1e3;
+    font-size: 1.6rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    transition: all 0.1s linear;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #ccced1;
+    }
+
+    .icon-follow,
+    .icon-message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 10px;
+      font-size: 1.8rem;
+    }
+  }
+
+  .btn-message {
+    background-color: var(--primary-color);
+    color: #fff;
+    &:hover {
+      background-color: var(--primary-color);
+      opacity: 0.8;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.feature-comment {
+  display: flex;
+  flex-direction: column;
+  min-width: 155px;
+  padding: 8px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+
+  .feature-comment-item {
+    padding: 8px;
+    font-weight: 600;
+    transition: all 0.1s linear;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #f0f2f5;
+      border-radius: 8px;
+    }
+  }
+}

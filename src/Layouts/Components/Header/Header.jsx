@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
-import { MENU } from "../../../Utils/dataMenu";
+import { MENU } from "../../../Utils/dataItem";
 
 import logo from "../../../Assets/images/logo.png";
 import noAvatar from "../../../Assets/images/noAvatar.png";
-import { FaFacebookMessenger } from "react-icons/fa";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
 
@@ -17,6 +16,7 @@ import Search from "../Search/Search";
 import Menu from "../../../Components/Popper/Menu/Menu";
 import Notification from "../../../Components/Popper/Notification/Notification";
 import Message from "../../../Components/Popper/Message/Message";
+import { BsMessenger } from "react-icons/bs";
 
 const cx = classnames.bind(styles);
 
@@ -61,7 +61,7 @@ const Header = () => {
                     setSeenMessage(false);
                   }}
                 >
-                  <FaFacebookMessenger />
+                  <BsMessenger />
                   {seenMessage && <div className={cx("quantity")}>2</div>}
                 </button>
               </Tippy>

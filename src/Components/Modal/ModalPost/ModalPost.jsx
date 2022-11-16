@@ -1,16 +1,24 @@
 import PropTypes from "prop-types";
-import axios from "axios";
+import {
+  createPost,
+  updatePost,
+  uploadImage,
+} from "../../../Services/postService";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../../../Features/postsSlice";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import noAvatar from "../../Assets/images/noAvatar.png";
+import noAvatar from "../../../Assets/images/noAvatar.png";
 import { CgClose } from "react-icons/cg";
 import { BsFileImage } from "react-icons/bs";
 import { MdOutlineAttachFile } from "react-icons/md";
 import { GoSmiley } from "react-icons/go";
 import { CircularProgress } from "@mui/material";
+import { toast } from "react-toastify";
 import classnames from "classnames/bind";
 import styles from "./Modal.module.scss";
+import { getPostsForUser } from "../../../Features/postsForUserSlice";
 
 const cx = classnames.bind(styles);
 
@@ -36,11 +44,14 @@ const ModalPost = ({
   contentEdit = "",
   imageEdit = "",
   typeCreate = true,
+  isPageProfile = false,
 }) => {
   const [showImg, setShowImg] = useState(true);
   const [contentPost, setContentPost] = useState(contentEdit);
   const [imageSelected, setImageSelected] = useState(imageEdit);
   const [loading, setLoading] = useState(false);
+  const currentUser = useSelector((state) => state.user.data);
+  const dispatch = useDispatch();
 
   const handleChangeImg = async (value) => {
     const data = new FormData();
@@ -48,11 +59,8 @@ const ModalPost = ({
     data.append("upload_preset", "cbop0txi");
     data.append("cloud_name", "dsvfqgd20");
     try {
-      const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dsvfqgd20/image/upload",
-        data
-      );
-      setImageSelected(res.data.url);
+      const res = await uploadImage(data);
+      setImageSelected(res.url);
     } catch (error) {
       console.log(error);
     }
@@ -61,31 +69,39 @@ const ModalPost = ({
   const handleCreate = async () => {
     setLoading(true);
     try {
-      await axios.post("http://localhost:8080/api/posts", {
-        userId,
-        desc: contentPost,
-        image: imageSelected,
-      });
-      setLoading(false);
-      setOpen(false);
-      window.location.reload();
+      if (contentPost) {
+        await createPost(userId, contentPost, imageSelected);
+        setLoading(false);
+        setOpen(false);
+        toast.success("Create post successfully!!");
+        if (isPageProfile) {
+          dispatch(getPostsForUser(currentUser._id));
+        } else {
+          dispatch(getPosts(currentUser._id));
+        }
+      } else {
+        toast.error("Empty content!!!");
+        setLoading(false);
+      }
     } catch (error) {
-      console.log(error);
+      toast.error("Create post failed!!");
     }
   };
 
   const handleEdit = async () => {
     setLoading(true);
     try {
-      await axios.put(`http://localhost:8080/api/posts/${idPost}`, {
-        userId,
-        desc: contentPost,
-        image: imageSelected,
-      });
+      await updatePost(idPost, userId, contentPost, imageSelected);
       setLoading(false);
       setOpen(false);
+      toast.success("Edit post successfully!!");
+      if (isPageProfile) {
+        dispatch(getPostsForUser(currentUser._id));
+      } else {
+        dispatch(getPosts(currentUser._id));
+      }
     } catch (error) {
-      console.log(error);
+      toast.error("Edit post failed!!");
     }
   };
 
@@ -178,7 +194,7 @@ const ModalPost = ({
           </div>
           <button
             className={cx("btn-post")}
-            onClick={contentEdit ? handleEdit : handleCreate}
+            onClick={contentEdit !== "" ? handleEdit : handleCreate}
           >
             {loading ? (
               <CircularProgress color="success" size={25} />
@@ -202,6 +218,7 @@ ModalPost.propTypes = {
   userId: PropTypes.string,
   idPost: PropTypes.string,
   typeCreate: PropTypes.bool,
+  isPageProfile: PropTypes.bool,
 };
 
 export default ModalPost;

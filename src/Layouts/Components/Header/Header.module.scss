@@ -56,7 +56,7 @@
     background-color: #e4e6eb;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.1s ease-in;
+    transition: all 0.1s linear;
 
     &:hover {
       background-color: #d8dae0;
@@ -70,6 +70,9 @@
 
   .btn-notifi {
     margin: 0 10px;
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   .quantity {
@@ -89,6 +92,11 @@
 
 .avatar {
   position: relative;
+  transition: all 0.1s ease-in;
+
+  &:active {
+    transform: scale(0.95);
+  }
 
   &::before {
     position: absolute;

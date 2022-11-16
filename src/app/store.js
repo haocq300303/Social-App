@@ -5,13 +5,13 @@ import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 
 import userReducer from "../Features/userSlice";
-import postReducer from "../Features/postSlice";
 import postsReducer from "../Features/postsSlice";
+import postsForUserReducer from "../Features/postsForUserSlice";
 
 const reducers = combineReducers({
   user: userReducer,
   posts: postsReducer,
-  post: postReducer,
+  postsForUser: postsForUserReducer,
 });
 
 const persistConfig = {

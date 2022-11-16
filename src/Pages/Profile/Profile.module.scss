@@ -29,10 +29,47 @@
   padding: 0;
 }
 
+.header-background {
+  position: relative;
+  z-index: 0;
+
+  .icon-edit-coverphoto {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    @extend #flex-center;
+    gap: 10px;
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.1s linear;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #edf0f5;
+    }
+
+    .icon-camera {
+      font-size: 2rem;
+    }
+
+    span {
+      @extend #flex-center;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+  }
+}
+
 .header-background img {
   width: 100%;
   height: 350px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .header-body {
@@ -43,14 +80,45 @@
 }
 
 .body-info {
+  position: relative;
   display: flex;
-  .avatar img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-top: -50px;
-    border: 4px solid #fff;
+
+  .avatar {
+    position: relative;
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: -50px;
+      border: 4px solid #fff;
+    }
+    .icon-edit-avatar {
+      position: absolute;
+      @extend #flex-center;
+      bottom: 10px;
+      right: 10px;
+      border-radius: 50%;
+      padding: 6px;
+      background-color: #e9ecf5;
+      font-size: 2rem;
+      transition: all 0.1s linear;
+      box-shadow: rgba(44, 43, 43, 0.24) 0px 2px 6px;
+
+      &:active {
+        transform: scale(0.98);
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: #adb2c0;
+      }
+    }
+  }
+
+  .des-img {
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
@@ -69,50 +137,50 @@
     font-weight: 600;
     color: #8090a9;
   }
-
-  .des-img img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid rgb(204, 203, 203);
-    object-fit: cover;
-    margin-right: -5px;
-  }
 }
 
 .body-actions {
   margin-bottom: 20px;
   display: flex;
+  gap: 10px;
   align-items: center;
 
-  .btn-add-story,
-  .btn-edit-profile {
+  .btn-actions {
     position: relative;
+    @extend #flex-center;
     padding: 10px 20px;
     border-radius: 10px;
-    font-size: 1.4rem;
-    font-weight: 600;
-    cursor: pointer;
-    @extend #flex-center;
+    background-color: #e4e6eb;
     transition: all 0.1s linear;
+
+    &:active {
+      transform: scale(0.95);
+    }
 
     &:hover {
       opacity: 0.8;
+      cursor: pointer;
     }
-  }
 
-  .btn-icon {
-    width: 20px;
-    height: 20px;
-    font-size: 2rem;
-    margin-right: 5px;
-    @extend #flex-center;
-  }
+    &.active {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
 
-  .btn-add-story {
-    background-color: var(--primary-color);
-    color: #fff;
-    margin-right: 10px;
+    span {
+      @extend #flex-center;
+      font-weight: 500;
+      font-family: var(--font-roboto);
+      font-size: 1.4rem;
+    }
+
+    .btn-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 2rem;
+      margin-right: 5px;
+      @extend #flex-center;
+    }
   }
 }
 
@@ -147,18 +215,18 @@
 
     .intro-item_icon {
       font-size: 3rem;
-      color: #8090a9;
+      color: #49576d;
       margin-right: 10px;
     }
 
     .intro-item_text {
       line-height: 2rem;
       font-weight: 600;
-      color: rgb(109, 109, 109);
+      color: rgb(80, 80, 80);
 
       span {
         color: #383838;
-        font-weight: 600;
+        font-weight: 700;
         margin-left: 5px;
         cursor: pointer;
       }
@@ -173,20 +241,25 @@
     padding: 0 10px;
     border-radius: 10px;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 36px;
     font-weight: 600;
     background-color: #e4e6eb;
-    margin: 20px 0;
+    margin: 20px 0 0;
     cursor: pointer;
+    transition: all 0.1s linear;
+
+    &:active {
+      transform: scale(0.95);
+    }
 
     &:hover {
       background-color: #eee;
     }
   }
 
-  .intro-btn_featured {
-    margin: 20px 0 0;
+  .intro-featured .featured-img {
+    padding-top: 20px;
   }
 
   .intro-featured .featured-img img {
@@ -214,11 +287,14 @@
     grid-gap: 10px;
 
     img {
-      width: 123.33px;
+      width: 100%;
       height: 123.33px;
       border-radius: 10px;
       object-fit: cover;
-      cursor: pointer;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
@@ -271,4 +347,10 @@
   &.active {
     top: 30px;
   }
+}
+
+.content-no-post {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
 }

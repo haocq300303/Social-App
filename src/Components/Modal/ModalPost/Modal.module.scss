@@ -36,7 +36,7 @@
   padding: 1.6rem;
 
   .modal-info {
-    @extend #flex-center;
+    display: flex;
     justify-content: left;
 
     .avatar {
@@ -46,8 +46,10 @@
     }
 
     .username {
+      font-family: var(--font-roboto);
+      font-size: 1.7rem;
       font-weight: 600;
-      margin-left: 1rem;
+      margin: 1rem 0 0 1rem;
     }
   }
 
@@ -61,7 +63,7 @@
       border: none;
       outline: none;
       background-color: #fff;
-      font-size: 2rem;
+      font-size: 1.8rem;
       padding: 0 0.8rem;
       font-family: var(--font-roboto);
       margin-bottom: 10px;

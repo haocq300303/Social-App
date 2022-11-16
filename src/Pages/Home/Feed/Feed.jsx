@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../../Features/postsSlice";
-import ModalPost from "../../../Components/Modal/ModalPost";
 import CreatePost from "../../../Components/Create-post/CreatePost";
 import Post from "../../../Components/Post/Post";
 import Stories from "./Stories/Stories";
 import CircularProgress from "@mui/material/CircularProgress";
 import classnames from "classnames/bind";
 import styles from "../Home.module.scss";
+import ModalPost from "../../../Components/Modal/ModalPost/ModalPost";
 
 const cx = classnames.bind(styles);
 const Feed = () => {
@@ -37,14 +37,11 @@ const Feed = () => {
       </div>
       {!isLoading && (
         <div className={cx("posts")}>
-          {posts.map((post) => (
-            <Post
-              key={post._id}
-              data={post}
-              currentUserId={currentUser._id}
-              avatar={currentUser.avatar}
-            />
-          ))}
+          {posts && posts.length > 0
+            ? posts.map((post) => (
+                <Post key={post._id} data={post} currentUser={currentUser} />
+              ))
+            : ""}
         </div>
       )}
       {openModalCreate && (

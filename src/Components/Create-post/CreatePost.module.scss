@@ -20,6 +20,7 @@
   padding: 10px;
   font-family: var(--roboto);
   font-weight: 500;
+  margin-left: 5px;
 
   &:hover {
     cursor: pointer;
@@ -31,17 +32,29 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--primary-color);
   color: #fff;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.2s linear;
+
+  &:active {
+    transform: scale(0.9);
+  }
 
   .icon-share {
     font-size: 1.6rem;
+    width: 18px;
+    height: 18px;
+    display: block;
   }
 
   .btn-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-weight: 600;
-    margin-left: 5px;
+    margin-left: 3px;
   }
 }

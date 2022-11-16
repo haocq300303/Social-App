@@ -1,8 +1,10 @@
-import axios from "axios";
+import { useState } from "react";
+import { register } from "../../Services/userService";
 import { useDispatch } from "react-redux";
-import { changeUser } from "../../Features/userSlice";
+import { getInfoUser } from "../../Features/userSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import routes from "../../Config/routes";
 import { schemaRegister } from "../../Schemas";
 import banner from "../../Assets/images/auth.png";
@@ -10,25 +12,30 @@ import { useFormik } from "formik";
 import { FcGoogle } from "react-icons/fc";
 import classnames from "classnames/bind";
 import styles from "./Auth.module.scss";
+import { CircularProgress } from "@mui/material";
 
 const cx = classnames.bind(styles);
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const dispath = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { confirmPassword, ...other } = values;
-    try {
-      const res = await axios.post(
-        "http://localhost:8080/api/auth/register",
-        other
-      );
-      dispath(changeUser(res.data));
-      navigate(`${routes.home}`);
-    } catch (error) {
-      console.log(error);
+    setLoading(true);
+    const data = await register(other);
+    if (data && data.success === false) {
+      setLoading(false);
+      toast.error("Login failed!!");
+      return;
     }
+    setLoading(false);
+    toast.success("Register successfully!!");
+    dispath(getInfoUser(data._id));
+    setTimeout(() => {
+      navigate(`${routes.login}`);
+    }, 1500);
   };
 
   const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -113,13 +120,23 @@ const Register = () => {
               </span>
             </div>
             <button type="submit" className={cx("form-btn")}>
-              Sign up
+              {loading ? (
+                <CircularProgress color="error" size={25} />
+              ) : (
+                "Sign up"
+              )}
             </button>
             <button className={cx("form-btn", "btn-gg")}>
-              <span>
-                <FcGoogle />
-              </span>
-              <p>Sign up with Google</p>
+              {loading ? (
+                <CircularProgress color="error" size={25} />
+              ) : (
+                <>
+                  <span>
+                    <FcGoogle />
+                  </span>
+                  <p>Sign up with Google</p>
+                </>
+              )}
             </button>
             <p className="form-des">
               Do you already have an account?
