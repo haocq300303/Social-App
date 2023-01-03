@@ -15,7 +15,7 @@ const AccountItem = ({
   setShowResult,
 }) => {
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.user.data);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
   return (
     <div
       className={cx("wrapper")}

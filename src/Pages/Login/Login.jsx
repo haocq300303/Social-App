@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { login } from "../../Services/userService";
-import { useDispatch } from "react-redux";
-import { getInfoUser } from "../../Features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAsync } from "../../Features/userSlice";
 import { useNavigate, Link } from "react-router-dom";
 import routes from "../../Config/routes";
 import { toast } from "react-toastify";
@@ -12,27 +10,39 @@ import banner from "../../Assets/images/auth.png";
 import { FcGoogle } from "react-icons/fc";
 import classnames from "classnames/bind";
 import styles from "../Register/Auth.module.scss";
+import { useEffect } from "react";
 
 const cx = classnames.bind(styles);
 const Login = () => {
-  const [loading, setLoading] = useState(false);
+  const user = useSelector((state) => state.user);
+  const loading = useSelector((state) => state.user.loading);
+  const isLogged = useSelector((state) => state.user.isLogged);
   const navigate = useNavigate();
   const dispath = useDispatch();
 
-  const onSubmit = async (values) => {
-    setLoading(true);
-    const data = await login(values);
-    if (data && data.success === false) {
-      toast.error("Login failed!!");
-      setLoading(false);
-      return;
+  useEffect(() => {
+    if (user.error !== "") {
+      toast.error(user.error);
     }
-    setLoading(false);
-    toast.success("Login successfully!!");
-    dispath(getInfoUser(data._id));
-    setTimeout(() => {
-      navigate(`${routes.home}`);
-    }, 1500);
+  }, [user.error]);
+
+  useEffect(() => {
+    if (user.currentUser.accessToken !== "") {
+      toast.success("Login successfully!!");
+      localStorage.setItem("accessToken", user.currentUser.accessToken);
+    }
+  }, [user.currentUser.accessToken]);
+
+  useEffect(() => {
+    if (isLogged) {
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    }
+  }, [isLogged, navigate]);
+
+  const onSubmit = async (values) => {
+    dispath(loginAsync(values));
   };
 
   const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({

@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 76px;
+}
+
+.slidebar {
+  width: 210px;
+  top: 76px;
+  margin: 0 30px;
+  z-index: 1;
+
+  &.active {
+    width: 70px;
+  }
+}
+
+.content {
+  padding-left: 270px;
+  &.active {
+    padding-left: 130px;
+  }
+}

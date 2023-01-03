@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import { dataProfile } from "../../Utils/dataItem";
 import classnames from "classnames/bind";
@@ -19,9 +20,9 @@ const ProfileIntro = ({
       <h3 className={cx("intro-title")}>Intro</h3>
       <div className={cx("intro-body")}>
         {dataProfile.map((item, index) => (
-          <>
+          <div key={`introkey-${index}`}>
             {arr[index] && (
-              <div key={index} className={cx("intro-item")}>
+              <div className={cx("intro-item")}>
                 <div className={cx("intro-item_icon")}>{item.icon}</div>
                 <div className={cx("intro-item_text")}>
                   {item.title}
@@ -29,7 +30,7 @@ const ProfileIntro = ({
                 </div>
               </div>
             )}
-          </>
+          </div>
         ))}
         {currentUserId === userId && (
           <button
@@ -88,4 +89,4 @@ ProfileIntro.propTypes = {
   userId: PropTypes.string,
 };
 
-export default ProfileIntro;
+export default memo(ProfileIntro);

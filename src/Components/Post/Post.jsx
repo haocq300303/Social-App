@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { deletePost, getOnePost, likePost } from "../../Services/postService";
 import { getOneUser } from "../../Services/userService";
 import { useDispatch } from "react-redux";
@@ -25,7 +25,11 @@ import Comment from "../Comment/Comment";
 import classnames from "classnames/bind";
 import styles from "./Post.module.scss";
 import ModalDelete from "../Modal/ModalDelete/ModalDelete";
-import { createComment, getAllComment } from "../../Services/commentService";
+import {
+  createComment,
+  deleteAllCommentForPost,
+  getAllComment,
+} from "../../Services/commentService";
 import { getPostsForUser } from "../../Features/postsForUserSlice";
 
 const cx = classnames.bind(styles);
@@ -105,7 +109,6 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
       const res = await getAllComment(data._id);
       setComments(res);
       setValueComment("");
-      toast.success("Create comment successfully!!!");
     } catch (error) {
       toast.error("Comment failed!!!");
     }
@@ -120,6 +123,7 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
   const handleDelete = async () => {
     try {
       await deletePost(data._id, currentUser._id);
+      await deleteAllCommentForPost(data._id);
       toast.success("Delete post successfully!!");
       setOpenConfirmDelete(false);
       if (isPageProfile) {
@@ -257,7 +261,8 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
 
         <div className={cx("actions")}>
           <div className={cx("like")} onClick={handleLiked}>
-            {activeLike || dataAffterChange.likes.includes(currentUser?._id) ? (
+            {activeLike === true ||
+            dataAffterChange.likes.includes(currentUser?._id) ? (
               <span>
                 <FaHeart />
               </span>
@@ -370,4 +375,12 @@ Post.propTypes = {
   isPageProfile: PropTypes.bool,
 };
 
-export default Post;
+function areEqual(prevProps, nextProps) {
+  const isEqual = prevProps.data?.userId === nextProps.data?.userId;
+  if (!isEqual) {
+    console.log("Render!");
+  }
+  return isEqual;
+}
+
+export default memo(Post, areEqual);

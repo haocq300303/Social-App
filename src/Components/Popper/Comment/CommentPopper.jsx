@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
-import { useState } from "react";
+import { useState, memo } from "react";
 import { toast } from "react-toastify";
 import classNames from "classnames/bind";
 import styles from "./CommentPopper.module.scss";
@@ -43,7 +43,6 @@ const CommentPopper = ({
         const result = await getAllComment(idPost);
         setComments(result);
         fetchUserReply();
-        toast.success("Delete reply successfully!!!");
         setShowModalDelete(false);
         setShowReply(true);
         return;
@@ -51,7 +50,6 @@ const CommentPopper = ({
       await deleteComment(idComment, idCurrentUser, idAdminPost, userId);
       const res = await getAllComment(idPost);
       setComments(res);
-      toast.success("Delete comment successfully!!!");
       setShowModalDelete(false);
     } catch (error) {
       toast.error("delete failed!!!");
@@ -122,4 +120,4 @@ CommentPopper.propTypes = {
   idPost: PropTypes.string,
 };
 
-export default CommentPopper;
+export default memo(CommentPopper);

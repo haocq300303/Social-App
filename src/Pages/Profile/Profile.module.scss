@@ -321,9 +321,12 @@
     }
 
     .item-username {
-      font-size: 1.4rem;
+      display: inline-block;
+      font-size: 1.6rem;
       font-weight: 600;
-      margin-top: 5px;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #000;
     }
   }
 }

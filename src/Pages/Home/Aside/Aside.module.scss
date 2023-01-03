@@ -8,9 +8,9 @@
   width: 240px;
   height: calc(100vh - 76px);
   margin-left: 30px;
-  // position: fixed;
-  // top: 76px;
-  // right: 193px;
+  position: fixed;
+  top: 76px;
+  right: 198px;
   z-index: 1;
 }
 
@@ -106,6 +106,7 @@
   margin-top: 10px;
 
   .contact-body {
+    min-height: 294px;
     max-height: 300px;
     background-color: #fff;
     box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px,
@@ -114,5 +115,9 @@
     border-radius: 10px;
     margin-bottom: 5px;
     overflow: overlay;
+
+    .account-item_link {
+      text-decoration: none;
+    }
   }
 }

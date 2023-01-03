@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import routes from "../../../Config/routes";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { MENU } from "../../../Utils/dataItem";
@@ -28,8 +29,8 @@ const Header = () => {
   const [activeNoti, setActiveNoti] = useState(false);
   const [seenMessage, setSeenMessage] = useState(true);
   const [seenNoti, setSeenNoti] = useState(true);
-
-  const { avatar } = useSelector((state) => state.user.data);
+  const { avatar } = useSelector((state) => state.user.currentUser.values);
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   return (
     <header className={cx("wrapper")}>
@@ -42,69 +43,84 @@ const Header = () => {
           <Search />
         </div>
         <div className={cx("actions")}>
-          <Message
-            show={showMessage}
-            setShow={setShowMessage}
-            setActiveMessage={setActiveMessage}
-          >
-            <div>
-              <Tippy interactive content="Message" arrow={false}>
-                <button
-                  className={
-                    activeMessage
-                      ? cx("btn-message", "active")
-                      : cx("btn-message")
-                  }
-                  onClick={() => {
-                    setShowMessage(!showMessage);
-                    setActiveMessage(!activeMessage);
-                    setSeenMessage(false);
-                  }}
-                >
-                  <BsMessenger />
-                  {seenMessage && <div className={cx("quantity")}>2</div>}
-                </button>
-              </Tippy>
-            </div>
-          </Message>
-          <Notification
-            show={showNoti}
-            setShow={setShowNoti}
-            setActiveNoti={setActiveNoti}
-          >
-            <div>
-              <Tippy interactive content="Notification" arrow={false}>
-                <button
-                  className={
-                    activeNoti ? cx("btn-notifi", "active") : cx("btn-notifi")
-                  }
-                  onClick={() => {
-                    setShowNoti(!showNoti);
-                    setActiveNoti(!activeNoti);
-                    setSeenNoti(false);
-                  }}
-                >
-                  <IoNotificationsSharp />
-                  {seenNoti && <div className={cx("quantity")}>1</div>}
-                </button>
-              </Tippy>
-            </div>
-          </Notification>
-          <Menu show={showMenu} setShow={setShowMenu} items={MENU}>
-            <div>
-              <Tippy interactive content="Account" arrow={false}>
-                <div
-                  className={cx("avatar")}
-                  onClick={() => setShowMenu(!showMenu)}
-                >
-                  <img src={avatar ? avatar : noAvatar} alt="avatar" />
-                  <button className={cx("icon-arrow")}>
-                    <IoMdArrowDropdown />
-                  </button>
+          {isLogged ? (
+            <>
+              <Message
+                show={showMessage}
+                setShow={setShowMessage}
+                setActiveMessage={setActiveMessage}
+              >
+                <div>
+                  <Tippy interactive content="Message" arrow={false}>
+                    <button
+                      className={
+                        activeMessage
+                          ? cx("btn-message", "active")
+                          : cx("btn-message")
+                      }
+                      onClick={() => {
+                        setShowMessage(!showMessage);
+                        setActiveMessage(!activeMessage);
+                        setSeenMessage(false);
+                      }}
+                    >
+                      <BsMessenger />
+                      {seenMessage && <div className={cx("quantity")}>2</div>}
+                    </button>
+                  </Tippy>
                 </div>
-              </Tippy>
-            </div>
-          </Menu>
+              </Message>
+              <Notification
+                show={showNoti}
+                setShow={setShowNoti}
+                setActiveNoti={setActiveNoti}
+              >
+                <div>
+                  <Tippy interactive content="Notification" arrow={false}>
+                    <button
+                      className={
+                        activeNoti
+                          ? cx("btn-notifi", "active")
+                          : cx("btn-notifi")
+                      }
+                      onClick={() => {
+                        setShowNoti(!showNoti);
+                        setActiveNoti(!activeNoti);
+                        setSeenNoti(false);
+                      }}
+                    >
+                      <IoNotificationsSharp />
+                      {seenNoti && <div className={cx("quantity")}>1</div>}
+                    </button>
+                  </Tippy>
+                </div>
+              </Notification>
+              <Menu show={showMenu} setShow={setShowMenu} items={MENU}>
+                <div>
+                  <Tippy interactive content="Account" arrow={false}>
+                    <div
+                      className={cx("avatar")}
+                      onClick={() => setShowMenu(!showMenu)}
+                    >
+                      <img src={avatar ? avatar : noAvatar} alt="avatar" />
+                      <button className={cx("icon-arrow")}>
+                        <IoMdArrowDropdown />
+                      </button>
+                    </div>
+                  </Tippy>
+                </div>
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Link to={routes.register} className={cx("btn-logout")}>
+                Register
+              </Link>
+              <Link to={routes.login} className={cx("btn-login")}>
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

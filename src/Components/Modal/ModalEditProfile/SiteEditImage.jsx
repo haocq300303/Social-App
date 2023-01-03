@@ -4,15 +4,19 @@ import classnames from "classnames/bind";
 import { IoImages } from "react-icons/io5";
 import styles from "./ModalEditProfile.module.scss";
 import { uploadImage, createPost } from "../../../Services/postService";
-import { editAvatar, editCoverPhoto } from "../../../Services/userService";
+import {
+  editAvatar,
+  editCoverPhoto,
+  getOneUser,
+} from "../../../Services/userService";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { getInfoUser } from "../../../Features/userSlice";
+import { saveUserValues } from "../../../Features/userSlice";
 
 const cx = classnames.bind(styles);
 const SiteEditImage = ({ setSite, isEditAvatar = true }) => {
   const [image, setImage] = useState("");
-  const currentUser = useSelector((state) => state.user.data);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
   const dispatch = useDispatch();
 
   const handleChangeImg = async (value) => {
@@ -41,7 +45,8 @@ const SiteEditImage = ({ setSite, isEditAvatar = true }) => {
         await editCoverPhoto(currentUser._id, image);
         await createPost(currentUser._id, "This is my cover photo.", image);
       }
-      dispatch(getInfoUser(currentUser._id));
+      const newDataUser = await getOneUser(currentUser._id);
+      dispatch(saveUserValues(newDataUser));
       toast.success("Edit successfully!!!");
       setTimeout(() => {
         setSite((prev) => prev.slice(0, 1));

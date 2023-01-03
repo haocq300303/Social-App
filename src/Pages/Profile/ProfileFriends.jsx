@@ -1,20 +1,35 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import noAvatar from "../../Assets/images/noAvatar.png";
 import classnames from "classnames/bind";
 import styles from "./Profile.module.scss";
+import { Link } from "react-router-dom";
 
 const cx = classnames.bind(styles);
-const ProfileFriends = ({ data }) => {
+const ProfileFriends = ({ data, currentUserId }) => {
   return (
     <div className={cx("friends")}>
-      <h3 className={cx("friends-title")}>Friends</h3>
+      <h3 className={cx("friends-title")}>Followers</h3>
       <div className={cx("friends-body")}>
         {data.map((item, index) => (
           <div key={index} className={cx("friend-item")}>
             <div className={cx("item-avatar")}>
-              <img src={item.image ? item.image : noAvatar} alt="avatar" />
+              <Link
+                to={
+                  currentUserId === item._id
+                    ? `/profile`
+                    : `/profileUser/${item._id}`
+                }
+              >
+                <img src={item.avatar ? item.avatar : noAvatar} alt="avatar" />
+              </Link>
             </div>
-            <p className={cx("item-username")}>{item.username}</p>
+            <Link
+              to={`/profileUser/${item._id}`}
+              className={cx("item-username")}
+            >
+              {item.username}
+            </Link>
           </div>
         ))}
       </div>
@@ -26,4 +41,4 @@ ProfileFriends.propTypes = {
   data: PropTypes.array,
 };
 
-export default ProfileFriends;
+export default memo(ProfileFriends);

@@ -32,7 +32,7 @@ const Register = () => {
     }
     setLoading(false);
     toast.success("Register successfully!!");
-    dispath(getInfoUser(data._id));
+    // dispath(getInfoUser(data._id));
     setTimeout(() => {
       navigate(`${routes.login}`);
     }, 1500);

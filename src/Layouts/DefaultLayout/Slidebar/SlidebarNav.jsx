@@ -11,7 +11,7 @@ import styles from "./Slidebar.module.scss";
 const cx = classnames.bind(styles);
 
 const SlidebarNav = () => {
-  const { _id } = useSelector((state) => state.user.data);
+  const { _id } = useSelector((state) => state.user.currentUser.values);
   const dispatch = useDispatch();
   const handleClick = (action) => {
     if (action === "Home") {

@@ -3,6 +3,12 @@
   width: 324px;
 }
 
+#flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -57,14 +63,24 @@
   .btn-follow,
   .btn-message {
     padding: 10px 25px;
+    width: 145px;
     background-color: #e0e1e3;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: var(--font-roboto);
     border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @extend #flex-center;
     margin-top: 10px;
     transition: all 0.1s linear;
+
+    span {
+      @extend #flex-center;
+    }
+
+    &.isCurrentUser {
+      font-size: 1.5rem;
+      padding: 10px;
+    }
 
     &:hover {
       cursor: pointer;
@@ -73,11 +89,9 @@
 
     .icon-follow,
     .icon-message {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @extend #flex-center;
       margin-right: 10px;
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
   }
 

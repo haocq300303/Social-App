@@ -11,7 +11,7 @@ import { formatDateUser } from "../../../Utils/formatDate";
 const cx = classnames.bind(styles);
 
 const MainSite = ({ setSite, setOpen }) => {
-  const inforUser = useSelector((state) => state.user.data);
+  const inforUser = useSelector((state) => state.user.currentUser.values);
   const birthday = formatDateUser(inforUser.date_of_birth);
   const arr = [
     inforUser.city,

@@ -41,6 +41,16 @@ const editIntro = (userId, city, from, desc, birthday, gender) => {
   });
 };
 
+const getUserFollowers = (id) => {
+  return axios.get(`/api/users/follower/${id}`);
+};
+
+const handleFollowUser = (id, userId) => {
+  return axios.put(`/api/users/${id}/follow`, {
+    userId,
+  });
+};
+
 export {
   register,
   login,
@@ -49,4 +59,6 @@ export {
   editAvatar,
   editCoverPhoto,
   editIntro,
+  getUserFollowers,
+  handleFollowUser,
 };

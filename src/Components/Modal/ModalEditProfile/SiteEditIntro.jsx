@@ -2,16 +2,16 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { schemaEditProfile } from "../../../Schemas";
-import { editIntro } from "../../../Services/userService";
-import { getInfoUser } from "../../../Features/userSlice";
+import { editIntro, getOneUser } from "../../../Services/userService";
 import { toast } from "react-toastify";
 import { formatDateUser, formatValueBirthday } from "../../../Utils/formatDate";
 import classnames from "classnames/bind";
 import styles from "./ModalEditProfile.module.scss";
+import { saveUserValues } from "../../../Features/userSlice";
 
 const cx = classnames.bind(styles);
 const SiteEditIntro = ({ setSite }) => {
-  const inforUser = useSelector((state) => state.user.data);
+  const inforUser = useSelector((state) => state.user.currentUser.values);
   const dispatch = useDispatch();
   const birthday = formatDateUser(inforUser.date_of_birth);
 
@@ -26,7 +26,8 @@ const SiteEditIntro = ({ setSite }) => {
         birthdayFormat,
         values.gender
       );
-      dispatch(getInfoUser(inforUser._id));
+      const newDataUser = await getOneUser(inforUser._id);
+      dispatch(saveUserValues(newDataUser));
       toast.success("Edit successfully!!!");
       setTimeout(() => {
         setSite((prev) => prev.slice(0, 1));

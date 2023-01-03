@@ -1,22 +1,38 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react";
 import "tippy.js/themes/light.css";
 import "tippy.js/animations/scale.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import noAvatar from "../../../Assets/images/noAvatar.png";
 import AvatarUser from "../../Avatar/Avatar";
 import classNames from "classnames/bind";
 import styles from "./InfoUser.module.scss";
-import { BsPersonCheckFill } from "react-icons/bs";
+import { BsPersonCheckFill, BsPersonPlusFill } from "react-icons/bs";
 import { FaFacebookMessenger } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
-import { MdDescription } from "react-icons/md";
+import { MdAddCircle, MdDescription, MdEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { getOneUser, handleFollowUser } from "../../../Services/userService";
+import { saveUserValues } from "../../../Features/userSlice";
 
 const cx = classNames.bind(styles);
 const InfoUser = ({ data, children }) => {
   const { avatar, username, city, desc } = data;
-  const currentUser = useSelector((state) => state.user.data);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
+  const dispatch = useDispatch();
+
+  const handleFollow = async () => {
+    try {
+      const res = await handleFollowUser(data._id, currentUser._id);
+      const userUpdate = await getOneUser(currentUser._id);
+      dispatch(saveUserValues(userUpdate));
+      toast.success(res);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
   return (
     <div>
       <Tippy
@@ -76,18 +92,48 @@ const InfoUser = ({ data, children }) => {
               </div>
             </div>
             <div className={cx("actions")}>
-              <button className={cx("btn-follow")}>
-                <span className={cx("icon-follow")}>
-                  <BsPersonCheckFill />
-                </span>
-                <span>Following</span>
-              </button>
-              <button className={cx("btn-message")}>
-                <span className={cx("icon-message")}>
-                  <FaFacebookMessenger />
-                </span>
-                <span>Message</span>
-              </button>
+              {currentUser._id === data._id ? (
+                <>
+                  <button className={cx("btn-message", "isCurrentUser")}>
+                    <span className={cx("icon-message")}>
+                      <MdAddCircle />
+                    </span>
+                    <span>Add to story</span>
+                  </button>
+                  <button className={cx("btn-follow", "isCurrentUser")}>
+                    <span className={cx("icon-follow")}>
+                      <MdEdit />
+                    </span>
+                    <span>Edit profile</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button className={cx("btn-follow")} onClick={handleFollow}>
+                    {currentUser?.followings?.includes(data._id) ? (
+                      <>
+                        <span className={cx("icon-follow")}>
+                          <BsPersonCheckFill />
+                        </span>
+                        <span>Following</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className={cx("icon-follow")}>
+                          <BsPersonPlusFill />
+                        </span>
+                        <span>Follow</span>
+                      </>
+                    )}
+                  </button>
+                  <button className={cx("btn-message")}>
+                    <span className={cx("icon-message")}>
+                      <FaFacebookMessenger />
+                    </span>
+                    <span>Message</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         }
@@ -103,4 +149,4 @@ InfoUser.propTypes = {
   data: PropTypes.object,
 };
 
-export default InfoUser;
+export default memo(InfoUser);

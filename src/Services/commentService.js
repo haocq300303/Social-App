@@ -62,6 +62,14 @@ const ChangeLikeComment = (idComment, userId) => {
   });
 };
 
+const deleteAllCommentForPost = (idPost) => {
+  return axios.delete(`/api/comments/delete/all`, {
+    data: {
+      idPost,
+    },
+  });
+};
+
 export {
   createComment,
   createReply,
@@ -71,4 +79,5 @@ export {
   getOneComment,
   getAllReplyForOneComment,
   ChangeLikeComment,
+  deleteAllCommentForPost,
 };

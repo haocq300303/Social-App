@@ -1,4 +1,4 @@
-#flex {
+#flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@
   top: 0;
   left: 0;
   right: 0;
-  @extend #flex;
+  @extend #flex-center;
   height: 56px;
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
@@ -17,14 +17,14 @@
 }
 
 .inner {
-  @extend #flex;
+  @extend #flex-center;
   justify-content: space-between;
   width: 1200px;
   margin: 0 auto;
 }
 
 .logo {
-  @extend #flex;
+  @extend #flex-center;
   text-decoration: none;
 
   img {
@@ -39,12 +39,13 @@
     font-family: var(--font-logo);
     color: var(--primary-color);
     margin-left: 10px;
-    @extend #flex;
+    @extend #flex-center;
   }
 }
 
 .actions {
-  @extend #flex;
+  @extend #flex-center;
+  gap: 10px;
 
   .btn-message,
   .btn-notifi {
@@ -52,7 +53,7 @@
     width: 40px;
     height: 40px;
     font-size: 2rem;
-    @extend #flex;
+    @extend #flex-center;
     background-color: #e4e6eb;
     border-radius: 10px;
     cursor: pointer;
@@ -69,7 +70,6 @@
   }
 
   .btn-notifi {
-    margin: 0 10px;
     &:active {
       transform: scale(0.95);
     }
@@ -79,7 +79,7 @@
     position: absolute;
     top: -6px;
     right: -4px;
-    @extend #flex;
+    @extend #flex-center;
     width: 19px;
     height: 19px;
     font-size: 1.2rem;
@@ -87,6 +87,39 @@
     color: #fff;
     border-radius: 50%;
     background-color: #e41e3f;
+  }
+
+  .btn-login,
+  .btn-logout {
+    width: 95px;
+    padding: 0 20px;
+    border-radius: 10px;
+    @extend #flex-center;
+    background-color: #fff;
+    color: #000;
+    line-height: 37px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: all 0.1s linear;
+    text-decoration: none;
+    color: #000;
+
+    &:hover {
+      background-color: var(--hover);
+    }
+  }
+
+  .btn-login {
+    background-color: var(--primary-color);
+    color: #fff;
+
+    &:hover {
+      background-color: var(--primary-color);
+      opacity: 0.8;
+    }
   }
 }
 
@@ -125,7 +158,7 @@
 
   .icon-arrow {
     position: absolute;
-    @extend #flex;
+    @extend #flex-center;
     bottom: -1px;
     right: -1px;
     width: 15px;

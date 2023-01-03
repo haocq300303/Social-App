@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -81,4 +82,4 @@ ModalEditProfile.propTypes = {
   currentSite: PropTypes.object,
 };
 
-export default ModalEditProfile;
+export default memo(ModalEditProfile);

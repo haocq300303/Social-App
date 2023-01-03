@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import useDebounce from "../../../Hooks/useDebounce";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
@@ -111,4 +111,4 @@ Message.propTypes = {
   setActiveMessage: PropTypes.func,
 };
 
-export default Message;
+export default memo(Message);

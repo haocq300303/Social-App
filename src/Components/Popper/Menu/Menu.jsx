@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react/headless";
 import PopperWrapper from "../Popper";
@@ -65,4 +65,4 @@ Menu.propTypes = {
   setShow: PropTypes.func,
 };
 
-export default Menu;
+export default memo(Menu);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../../Features/postsSlice";
+import { useLocation } from "react-router-dom";
 import CreatePost from "../../../Components/Create-post/CreatePost";
 import Post from "../../../Components/Post/Post";
 import Stories from "./Stories/Stories";
@@ -11,15 +12,20 @@ import ModalPost from "../../../Components/Modal/ModalPost/ModalPost";
 
 const cx = classnames.bind(styles);
 const Feed = () => {
-  const currentUser = useSelector((state) => state.user.data);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
+  const isLogged = useSelector((state) => state.user.isLogged);
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const posts = useSelector((state) => state.posts.posts);
   const isLoading = useSelector((state) => state.posts.isLoading);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const url = location.pathname;
 
   useEffect(() => {
-    dispatch(getPosts(currentUser._id));
-  }, [dispatch, currentUser._id]);
+    if (isLogged === true && url === "/") {
+      dispatch(getPosts(currentUser._id));
+    }
+  }, [dispatch, currentUser._id, isLogged, url]);
 
   return (
     <div className={cx("feed")}>

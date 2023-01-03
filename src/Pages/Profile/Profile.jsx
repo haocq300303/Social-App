@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import noBackground from "../../Assets/images/noBackground.png";
 import noAvatar from "../../Assets/images/noAvatar.png";
 import { MdAddCircle, MdEdit } from "react-icons/md";
-import { dataFriends } from "../../Utils/dataItem";
 import { BsFillCameraFill } from "react-icons/bs";
 import ProfileIntro from "./ProfileIntro";
 import ProfilePhotos from "./ProfilePhotos";
@@ -17,15 +16,19 @@ import ModalPost from "../../Components/Modal/ModalPost/ModalPost";
 import classnames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import { getPostsForUser } from "../../Features/postsForUserSlice";
+import { getUserFollowers } from "../../Services/userService";
+import InfoUser from "../../Components/Popper/InfoUser/InfoUser";
+import { Link } from "react-router-dom";
 
 const cx = classnames.bind(styles);
 const Profile = () => {
-  const currentUser = useSelector((state) => state.user.data);
-  const isLoadingGetUser = useSelector((state) => state.user.isLoading);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
+  const [isLoading, setIsLoading] = useState(true);
   const posts = useSelector((state) => state.postsForUser.posts);
   const [openModal, setOpenModal] = useState(false);
   const [openModalEditProfile, setOpenModalEditProfile] = useState(false);
   const dispatch = useDispatch();
+  const [dataFollowers, setDataFollowers] = useState([]);
 
   // handle edit profile
   const [siteEdit, setSiteEdit] = useState([
@@ -39,8 +42,12 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true);
       try {
         dispatch(getPostsForUser(currentUser._id));
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 800);
       } catch (error) {
         console.log(error);
       }
@@ -48,9 +55,21 @@ const Profile = () => {
     fetchPosts();
   }, [currentUser._id, dispatch]);
 
+  useEffect(() => {
+    const fetchUserFollowers = async () => {
+      try {
+        const res = await getUserFollowers(currentUser._id);
+        setDataFollowers(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUserFollowers();
+  }, [currentUser._id]);
+
   return (
     <div className={cx("wrapper")}>
-      {isLoadingGetUser === false && (
+      {isLoading === false && (
         <div>
           <div className={cx("header")}>
             <div className={cx("header-background")}>
@@ -107,12 +126,24 @@ const Profile = () => {
                     {currentUser.username}
                   </h4>
                   <span className={cx("info-friends")}>
-                    {`${currentUser.followers?.length}`} friends
+                    {`${currentUser.followers?.length}`} followers
                   </span>
                   <AvatarGroup max={8} className={cx("des-img")}>
-                    {currentUser.followers.map((item) => (
-                      <AvatarUser key={item} src={""} />
-                    ))}
+                    {dataFollowers &&
+                      dataFollowers.length > 0 &&
+                      dataFollowers.map((item) => (
+                        <InfoUser key={item._id} data={item}>
+                          <Link
+                            to={
+                              currentUser._id === item._id
+                                ? `/profile`
+                                : `/profileUser/${item._id}`
+                            }
+                          >
+                            <AvatarUser src={item.avatar} />
+                          </Link>
+                        </InfoUser>
+                      ))}
                   </AvatarGroup>
                 </div>
               </div>
@@ -145,7 +176,10 @@ const Profile = () => {
                 userId={currentUser._id}
               />
               <ProfilePhotos idUser={currentUser._id} />
-              <ProfileFriends data={dataFriends} />
+              <ProfileFriends
+                data={dataFollowers}
+                currentUserId={currentUser._id}
+              />
             </div>
             <div className={cx("content-body")}>
               <div onClick={() => setOpenModal(true)}>
@@ -188,9 +222,7 @@ const Profile = () => {
           currentSite={currentSite}
         />
       )}
-      <div
-        className={isLoadingGetUser ? cx("loading", "active") : cx("loading")}
-      >
+      <div className={isLoading ? cx("loading", "active") : cx("loading")}>
         <CircularProgress size={30} />
       </div>
     </div>

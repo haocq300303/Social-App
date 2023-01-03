@@ -6,7 +6,7 @@ import {
 } from "../../../Services/postService";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../../Features/postsSlice";
-import { useState } from "react";
+import { useState, memo } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import noAvatar from "../../../Assets/images/noAvatar.png";
@@ -50,7 +50,7 @@ const ModalPost = ({
   const [contentPost, setContentPost] = useState(contentEdit);
   const [imageSelected, setImageSelected] = useState(imageEdit);
   const [loading, setLoading] = useState(false);
-  const currentUser = useSelector((state) => state.user.data);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
   const dispatch = useDispatch();
 
   const handleChangeImg = async (value) => {
@@ -221,4 +221,4 @@ ModalPost.propTypes = {
   isPageProfile: PropTypes.bool,
 };
 
-export default ModalPost;
+export default memo(ModalPost);

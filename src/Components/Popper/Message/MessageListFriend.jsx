@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import routes from "../../../Config/routes.jsx";
+import routes from "../../../Config/routes.js";
 import PropTypes from "prop-types";
 import MessageItem from "./MessageItem";
 import classNames from "classnames/bind";

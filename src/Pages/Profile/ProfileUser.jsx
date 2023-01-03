@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getOneUser } from "../../Services/userService";
+import { getOneUser, getUserFollowers } from "../../Services/userService";
 import noBackground from "../../Assets/images/noBackground.png";
 import noAvatar from "../../Assets/images/noAvatar.png";
-import { dataFriends } from "../../Utils/dataItem";
-import { BsPersonCheckFill } from "react-icons/bs";
+import { BsPersonCheckFill, BsPersonPlusFill } from "react-icons/bs";
 import { FaFacebookMessenger } from "react-icons/fa";
 import ProfileIntro from "./ProfileIntro";
 import ProfilePhotos from "./ProfilePhotos";
@@ -16,15 +15,17 @@ import AvatarUser from "../../Components/Avatar/Avatar";
 import classnames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import { getPostsForUser } from "../../Features/postsForUserSlice";
+import InfoUser from "../../Components/Popper/InfoUser/InfoUser";
 
 const cx = classnames.bind(styles);
 const ProfileUser = () => {
-  const currentUser = useSelector((state) => state.user.data);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
   const [infoUser, setInfoUser] = useState({});
   const posts = useSelector((state) => state.postsForUser.posts);
   const { userId } = useParams();
   const [isLoading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const [dataFollowers, setDataFollowers] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -51,6 +52,18 @@ const ProfileUser = () => {
     fetchUser();
   }, [currentUser._id, userId]);
 
+  useEffect(() => {
+    const fetchUserFollowers = async () => {
+      try {
+        const res = await getUserFollowers(userId);
+        setDataFollowers(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUserFollowers();
+  }, [userId]);
+
   return (
     <div className={cx("wrapper")}>
       {!isLoading && (
@@ -73,21 +86,44 @@ const ProfileUser = () => {
                 <div className={cx("info-container")}>
                   <h4 className={cx("info-username")}>{infoUser.username}</h4>
                   <span className={cx("info-friends")}>
-                    {`${infoUser.followers?.length}`} friends
+                    {`${infoUser.followers?.length}`} followers
                   </span>
                   <AvatarGroup max={8} className={cx("des-img")}>
-                    {infoUser.followers.map((item) => (
-                      <AvatarUser key={item} src={""} />
-                    ))}
+                    {dataFollowers &&
+                      dataFollowers.length > 0 &&
+                      dataFollowers.map((item) => (
+                        <InfoUser key={item._id} data={item}>
+                          <Link
+                            to={
+                              currentUser._id === item._id
+                                ? `/profile`
+                                : `/profileUser/${item._id}`
+                            }
+                          >
+                            <AvatarUser src={item.avatar} />
+                          </Link>
+                        </InfoUser>
+                      ))}
                   </AvatarGroup>
                 </div>
               </div>
               <div className={cx("body-actions")}>
                 <button className={cx("btn-actions")}>
-                  <span className={cx("btn-icon")}>
-                    <BsPersonCheckFill />
-                  </span>
-                  <span>Friends</span>
+                  {currentUser?.followings?.includes(userId) ? (
+                    <>
+                      <span className={cx("btn-icon")}>
+                        <BsPersonCheckFill />
+                      </span>
+                      <span>Following</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className={cx("btn-icon")}>
+                        <BsPersonPlusFill />
+                      </span>
+                      <span>Follow</span>
+                    </>
+                  )}
                 </button>
                 <button className={cx("btn-actions", "active")}>
                   <span className={cx("btn-icon")}>
@@ -106,7 +142,10 @@ const ProfileUser = () => {
                 userId={userId}
               />
               <ProfilePhotos idUser={userId} />
-              <ProfileFriends data={dataFriends} />
+              <ProfileFriends
+                data={dataFollowers}
+                currentUserId={currentUser._id}
+              />
             </div>
             <div className={cx("content-body")}>
               {posts && posts.length > 0 ? (

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo, useCallback } from "react";
 import { useSelector } from "react-redux";
 import AvatarUser from "../Avatar/Avatar";
 import { FiMoreHorizontal } from "react-icons/fi";
@@ -33,7 +33,7 @@ const Comment = ({
   isModalDetailPost = false,
 }) => {
   const [showReply, setShowReply] = useState(false);
-  const currentUser = useSelector((state) => state.user.data);
+  const currentUser = useSelector((state) => state.user.currentUser.values);
   const [userComment, setUserComment] = useState({});
   const [userReplies, setUserReplies] = useState([]);
   const [showFeatureComment, setShowFeatureComment] = useState(false);
@@ -57,10 +57,10 @@ const Comment = ({
     }
   }, [data.likes, currentUser?._id]);
 
-  const fetchUserReply = async () => {
+  const fetchUserReply = useCallback(async () => {
     const res = await getAllReplyForOneComment(data._id);
     setUserReplies(res);
-  };
+  }, [data._id]);
 
   const fetchInFoReply = (item, index) => {
     return (
@@ -147,7 +147,6 @@ const Comment = ({
       setComments(result);
       fetchUserReply();
       setValueReply("");
-      toast.success("Create reply successfully!!!");
     } catch (error) {
       toast.error("Create reply failed!!!");
     }
@@ -323,4 +322,4 @@ Comment.propTypes = {
   isModalDetailPost: PropTypes.bool,
 };
 
-export default Comment;
+export default memo(Comment);

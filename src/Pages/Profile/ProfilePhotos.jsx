@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import classnames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import { getAllImage } from "../../Services/postService";
@@ -39,4 +39,4 @@ ProfilePhotos.propTypes = {
   idUser: PropTypes.string,
 };
 
-export default ProfilePhotos;
+export default memo(ProfilePhotos);
