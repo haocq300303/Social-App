@@ -73,19 +73,20 @@ const CommentPopper = ({
             >
               Report comment
             </div>
-            {(idCurrentUser === idAdminPost ||
-              idCurrentUser === userIdComment ||
-              idCurrentUser === userIdReply) && (
-              <div
-                className={cx("feature-comment-item")}
-                onClick={() => {
-                  setShowModalDelete(true);
-                  setShow(false);
-                }}
-              >
-                Delete comment
-              </div>
-            )}
+            {idCurrentUser &&
+              (idCurrentUser === idAdminPost ||
+                idCurrentUser === userIdComment ||
+                idCurrentUser === userIdReply) && (
+                <div
+                  className={cx("feature-comment-item")}
+                  onClick={() => {
+                    setShowModalDelete(true);
+                    setShow(false);
+                  }}
+                >
+                  Delete comment
+                </div>
+              )}
           </div>
         )}
         onClickOutside={() => setShow(false)}

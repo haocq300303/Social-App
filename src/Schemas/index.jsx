@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import parse from "date-fns/parse";
+import { parse, format } from "date-fns";
 
 export const schemaRegister = yup.object().shape({
   username: yup
@@ -41,12 +41,12 @@ export const schemaEditProfile = yup.object().shape({
     .typeError("please enter a valid date")
     .min(10, "Please enter a valid date(dd/mm/yyyy)")
     .max(
-      new Date(),
+      format(new Date(Date.now()), "dd/MM/yyyy"),
       "The date of birth cannot be greater than the current date"
     )
     .required("Required"),
   gender: yup
     .string()
-    .matches(/(Nam|Nữ)/, "Gender must be male or female")
+    .matches(/(Nam|Nữ|Male|Female)/, "Gender must be male or female")
     .required("Required"),
 });

@@ -4,7 +4,17 @@
   align-items: center;
 }
 
+@keyframes resizer {
+  from {
+    width: 70px;
+  }
+  to {
+    width: 210px;
+  }
+}
+
 .container {
+  position: relative;
   display: flex;
   max-width: 1200px;
   margin: 0 auto;
@@ -13,12 +23,22 @@
 
 .slidebar {
   width: 210px;
+  position: fixed;
   top: 76px;
   margin: 0 30px;
   z-index: 1;
+  animation: reverse 1s linear;
 
   &.active {
     width: 70px;
+
+    .menu_item-icon {
+      margin-right: 0 !important;
+    }
+
+    .title {
+      display: none;
+    }
   }
 
   .list-menu {

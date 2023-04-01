@@ -31,9 +31,11 @@ const Comment = ({
   setComments,
   idPost,
   isModalDetailPost = false,
+  setOpenModalLogin,
 }) => {
   const [showReply, setShowReply] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser.values);
+  const isLogged = useSelector((state) => state.user.isLogged);
   const [userComment, setUserComment] = useState({});
   const [userReplies, setUserReplies] = useState([]);
   const [showFeatureComment, setShowFeatureComment] = useState(false);
@@ -141,6 +143,10 @@ const Comment = ({
   };
 
   const handleSendReply = async () => {
+    if (!isLogged) {
+      setOpenModalLogin(true);
+      return;
+    }
     try {
       await createReply(data._id, currentUser._id, valueReply);
       const result = await getAllComment(idPost);
@@ -159,6 +165,10 @@ const Comment = ({
   };
 
   const handleLikeComment = async () => {
+    if (!isLogged) {
+      setOpenModalLogin(true);
+      return;
+    }
     try {
       await ChangeLikeComment(data._id, currentUser._id);
       const res = await getOneComment(data._id);
@@ -318,6 +328,7 @@ Comment.propTypes = {
   data: PropTypes.object,
   idAdminPost: PropTypes.string,
   setComments: PropTypes.func,
+  setOpenModalLogin: PropTypes.func,
   idPost: PropTypes.string,
   isModalDetailPost: PropTypes.bool,
 };

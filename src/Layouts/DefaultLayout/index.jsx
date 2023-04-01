@@ -10,13 +10,13 @@ const cx = classNames.bind(styles);
 const DefaultLayout = () => {
   const [active, setActive] = useState(false);
   const location = useLocation();
-  const url = location.pathname.slice(0, 8);
+  const url = location.pathname;
 
   useEffect(() => {
-    if (url === "/profile") {
-      return setActive(true);
+    if (url === "/") {
+      return setActive(false);
     }
-    setActive(false);
+    setActive(true);
   }, [url]);
 
   return (

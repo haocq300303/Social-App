@@ -35,7 +35,7 @@ const AsideContact = () => {
       <div className={cx("contact-body")}>
         {dataFriends &&
           dataFriends.length > 0 &&
-          dataFriends.map((item) => (
+          dataFriends?.map((item) => (
             <Link
               key={item._id}
               to={`/profileUser/${item._id}`}
@@ -44,6 +44,7 @@ const AsideContact = () => {
               <AccountItem
                 avatar={item.avatar}
                 username={item.username}
+                subName={item.email}
                 isOnline={true}
               />
             </Link>

@@ -28,7 +28,7 @@ const ProfilePhotos = ({ idUser }) => {
             <img key={item.id} src={item.image} alt="img" />
           ))
         ) : (
-          <h4>No images yet</h4>
+          <h4 className={cx("message-notdata")}>No images yet</h4>
         )}
       </div>
     </div>

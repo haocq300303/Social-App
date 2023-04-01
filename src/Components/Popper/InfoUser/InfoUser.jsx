@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import PropTypes from "prop-types";
 import Tippy from "@tippyjs/react";
 import "tippy.js/themes/light.css";
@@ -16,14 +16,21 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getOneUser, handleFollowUser } from "../../../Services/userService";
 import { saveUserValues } from "../../../Features/userSlice";
+import ModalLogin from "../../Modal/ModalLogin/ModalLogin";
 
 const cx = classNames.bind(styles);
 const InfoUser = ({ data, children }) => {
   const { avatar, username, city, desc } = data;
   const currentUser = useSelector((state) => state.user.currentUser.values);
+  const isLogged = useSelector((state) => state.user.isLogged);
+  const [openModalLogin, setOpenModalLogin] = useState(false);
   const dispatch = useDispatch();
 
   const handleFollow = async () => {
+    if (!isLogged) {
+      setOpenModalLogin(true);
+      return;
+    }
     try {
       const res = await handleFollowUser(data._id, currentUser._id);
       const userUpdate = await getOneUser(currentUser._id);
@@ -140,6 +147,9 @@ const InfoUser = ({ data, children }) => {
       >
         {children}
       </Tippy>
+      {openModalLogin && (
+        <ModalLogin show={openModalLogin} setShow={setOpenModalLogin} />
+      )}
     </div>
   );
 };

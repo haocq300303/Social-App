@@ -62,7 +62,7 @@ const ModalPost = ({
       const res = await uploadImage(data);
       setImageSelected(res.url);
     } catch (error) {
-      console.log(error);
+      toast.error("Something error!!!");
     }
   };
 

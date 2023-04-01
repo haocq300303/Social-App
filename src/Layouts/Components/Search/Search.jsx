@@ -68,6 +68,7 @@ const Search = () => {
                   idUser={result.id}
                   avatar={result.avatar}
                   username={result.username}
+                  subName={result.email}
                   setShowResult={setShowResult}
                 />
               ))}

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getOneUser, getUserFollowers } from "../../Services/userService";
+import {
+  getOneUser,
+  getUserFollowers,
+  handleFollowUser,
+} from "../../Services/userService";
 import noBackground from "../../Assets/images/noBackground.png";
 import noAvatar from "../../Assets/images/noAvatar.png";
 import { BsPersonCheckFill, BsPersonPlusFill } from "react-icons/bs";
@@ -16,14 +20,19 @@ import classnames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import { getPostsForUser } from "../../Features/postsForUserSlice";
 import InfoUser from "../../Components/Popper/InfoUser/InfoUser";
+import { saveUserValues } from "../../Features/userSlice";
+import { toast } from "react-toastify";
+import ModalLogin from "../../Components/Modal/ModalLogin/ModalLogin";
 
 const cx = classnames.bind(styles);
 const ProfileUser = () => {
   const currentUser = useSelector((state) => state.user.currentUser.values);
+  const isLogged = useSelector((state) => state.user.isLogged);
   const [infoUser, setInfoUser] = useState({});
   const posts = useSelector((state) => state.postsForUser.posts);
   const { userId } = useParams();
   const [isLoading, setLoading] = useState(true);
+  const [openModalLogin, setOpenModalLogin] = useState(false);
   const dispatch = useDispatch();
   const [dataFollowers, setDataFollowers] = useState([]);
 
@@ -63,6 +72,28 @@ const ProfileUser = () => {
     };
     fetchUserFollowers();
   }, [userId]);
+
+  const handleFollow = async () => {
+    if (!isLogged) {
+      setOpenModalLogin(true);
+      return;
+    }
+    try {
+      const res = await handleFollowUser(userId, currentUser._id);
+      const userUpdate = await getOneUser(currentUser._id);
+      dispatch(saveUserValues(userUpdate));
+      toast.success(res);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  const handleMessage = () => {
+    if (!isLogged) {
+      setOpenModalLogin(true);
+      return;
+    }
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -108,7 +139,7 @@ const ProfileUser = () => {
                 </div>
               </div>
               <div className={cx("body-actions")}>
-                <button className={cx("btn-actions")}>
+                <button className={cx("btn-actions")} onClick={handleFollow}>
                   {currentUser?.followings?.includes(userId) ? (
                     <>
                       <span className={cx("btn-icon")}>
@@ -125,7 +156,10 @@ const ProfileUser = () => {
                     </>
                   )}
                 </button>
-                <button className={cx("btn-actions", "active")}>
+                <button
+                  className={cx("btn-actions", "active")}
+                  onClick={handleMessage}
+                >
                   <span className={cx("btn-icon")}>
                     <FaFacebookMessenger />
                   </span>
@@ -150,13 +184,7 @@ const ProfileUser = () => {
             <div className={cx("content-body")}>
               {posts && posts.length > 0 ? (
                 posts.map((post) => (
-                  <Post
-                    key={post._id}
-                    data={post}
-                    currentUser={currentUser}
-                    avatar={currentUser.avatar}
-                    isPageProfile={true}
-                  />
+                  <Post key={post._id} data={post} isPageProfile={true} />
                 ))
               ) : (
                 <p className={cx("content-no-post")}>There are no posts yet!</p>
@@ -168,6 +196,9 @@ const ProfileUser = () => {
       <div className={isLoading ? cx("loading", "active") : cx("loading")}>
         <CircularProgress size={30} />
       </div>
+      {openModalLogin && (
+        <ModalLogin show={openModalLogin} setShow={setOpenModalLogin} />
+      )}
     </div>
   );
 };

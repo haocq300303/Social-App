@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from "react";
 import { deletePost, getOnePost, likePost } from "../../Services/postService";
 import { getOneUser } from "../../Services/userService";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../Features/postsSlice";
 import Tippy from "@tippyjs/react/headless";
 import { CircularProgress } from "@mui/material";
@@ -31,14 +31,18 @@ import {
   getAllComment,
 } from "../../Services/commentService";
 import { getPostsForUser } from "../../Features/postsForUserSlice";
+import ModalLogin from "../Modal/ModalLogin/ModalLogin";
 
 const cx = classnames.bind(styles);
-const Post = ({ data, currentUser, isPageProfile = false }) => {
+const Post = ({ data, isPageProfile = false }) => {
+  const currentUser = useSelector((state) => state.user.currentUser.values);
+  const isLogged = useSelector((state) => state.user.isLogged);
   const [adminPost, setAdminPost] = useState({});
   const [showFeature, setShowFeature] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
   const [openModalDetail, setOpenModalDetail] = useState(false);
+  const [openModalLogin, setOpenModalLogin] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [activeLike, setActiveLike] = useState(false);
   const [dataAffterChange, setDataAffterChange] = useState(data);
@@ -85,6 +89,10 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
   }, [data._id]);
 
   const handleLiked = async () => {
+    if (!isLogged) {
+      setOpenModalLogin(true);
+      return;
+    }
     try {
       await likePost(data._id, currentUser?._id);
       const res = await getOnePost(data._id);
@@ -122,7 +130,7 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
 
   const handleDelete = async () => {
     try {
-      await deletePost(data._id, currentUser._id);
+      await deletePost(data._id, currentUser?._id);
       await deleteAllCommentForPost(data._id);
       toast.success("Delete post successfully!!");
       setOpenConfirmDelete(false);
@@ -186,7 +194,7 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
               <div className={cx("avatar")}>
                 <Link
                   to={
-                    adminPost._id === currentUser._id
+                    adminPost._id === currentUser?._id
                       ? "/profile"
                       : `/profileUser/${adminPost._id}`
                   }
@@ -200,7 +208,7 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
               <div className={cx("info-admin")}>
                 <Link
                   to={
-                    adminPost._id === currentUser._id
+                    adminPost._id === currentUser?._id
                       ? "/profile"
                       : `/profileUser/${adminPost._id}`
                   }
@@ -285,25 +293,32 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
         </div>
         {showComment && (
           <div className={cx("comments")}>
-            <div className={cx("write-comments")}>
-              <AvatarUser
-                src={currentUser.avatar ? currentUser.avatar : noAvatar}
-                isActive={true}
-              />
-              <input
-                value={valueComment}
-                type="text"
-                autoFocus={true}
-                className={cx("input-comments")}
-                placeholder="Write a comments..."
-                spellCheck={false}
-                onChange={(e) => setValueComment(e.target.value)}
-                onKeyDown={(e) => handleEnter(e.key)}
-              />
-              <div className={cx("icon-send")} onClick={handleSendComment}>
-                <BiSend />
+            {isLogged ? (
+              <div className={cx("write-comments")}>
+                <AvatarUser
+                  src={currentUser.avatar ? currentUser.avatar : noAvatar}
+                  isActive={true}
+                />
+                <input
+                  value={valueComment}
+                  type="text"
+                  autoFocus={true}
+                  className={cx("input-comments")}
+                  placeholder="Write a comments..."
+                  spellCheck={false}
+                  onChange={(e) => setValueComment(e.target.value)}
+                  onKeyDown={(e) => handleEnter(e.key)}
+                />
+                <div className={cx("icon-send")} onClick={handleSendComment}>
+                  <BiSend />
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={cx("message-private")}>
+                Hãy đăng nhập để có thể bình luận!!
+              </div>
+            )}
+
             <div className={cx("list-comments")}>
               {isLoadingComment ? (
                 <div className={cx("icon-loading")}>
@@ -317,6 +332,7 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
                     idAdminPost={data.userId}
                     idPost={data._id}
                     setComments={setComments}
+                    setOpenModalLogin={setOpenModalLogin}
                   />
                 ))
               ) : (
@@ -363,7 +379,11 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
           handleLiked={handleLiked}
           userId={currentUser?._id}
           isLoadingComment={isLoadingComment}
+          setOpenModalLogin={setOpenModalLogin}
         />
+      )}
+      {openModalLogin && (
+        <ModalLogin show={openModalLogin} setShow={setOpenModalLogin} />
       )}
     </>
   );
@@ -371,7 +391,6 @@ const Post = ({ data, currentUser, isPageProfile = false }) => {
 
 Post.propTypes = {
   data: PropTypes.object,
-  currentUser: PropTypes.object,
   isPageProfile: PropTypes.bool,
 };
 

@@ -353,7 +353,11 @@
 }
 
 .content-no-post {
-  font-size: 1.6rem;
+  @extend #popperWrapper;
   font-weight: 600;
   text-align: center;
+}
+
+.message-notdata {
+  font-size: 1.4rem;
 }

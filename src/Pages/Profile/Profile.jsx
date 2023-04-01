@@ -188,17 +188,13 @@ const Profile = () => {
                   username={currentUser.username}
                 />
               </div>
-              {posts &&
-                posts.length > 0 &&
+              {posts && posts.length > 0 ? (
                 posts.map((post) => (
-                  <Post
-                    key={post._id}
-                    data={post}
-                    currentUser={currentUser}
-                    avatar={currentUser.avatar}
-                    isPageProfile={true}
-                  />
-                ))}
+                  <Post key={post._id} data={post} isPageProfile={true} />
+                ))
+              ) : (
+                <p className={cx("content-no-post")}>There are no posts yet!</p>
+              )}
             </div>
           </div>
         </div>

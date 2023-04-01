@@ -45,6 +45,10 @@ const getUserFollowers = (id) => {
   return axios.get(`/api/users/follower/${id}`);
 };
 
+const getUserSuggested = () => {
+  return axios.get(`/api/users/suggested/all`);
+};
+
 const handleFollowUser = (id, userId) => {
   return axios.put(`/api/users/${id}/follow`, {
     userId,
@@ -61,4 +65,5 @@ export {
   editIntro,
   getUserFollowers,
   handleFollowUser,
+  getUserSuggested,
 };

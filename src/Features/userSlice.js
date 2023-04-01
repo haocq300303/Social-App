@@ -35,7 +35,6 @@ const userSlice = createSlice({
     },
     saveUserValues(state, action) {
       state.currentUser.values = action.payload;
-      state.isLogged = true;
     },
   },
   extraReducers(builder) {

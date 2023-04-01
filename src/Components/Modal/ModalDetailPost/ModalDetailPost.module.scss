@@ -186,6 +186,13 @@
       cursor: pointer;
       border-left: 2px solid #ccc;
     }
+
+    &.message {
+      padding: 20px;
+      @extend #flex-center;
+      color: #fff;
+      background-color: var(--primary-color);
+    }
   }
 
   .list-comments {

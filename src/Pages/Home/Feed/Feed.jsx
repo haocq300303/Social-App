@@ -44,9 +44,7 @@ const Feed = () => {
       {!isLoading && (
         <div className={cx("posts")}>
           {posts && posts.length > 0
-            ? posts.map((post) => (
-                <Post key={post._id} data={post} currentUser={currentUser} />
-              ))
+            ? posts?.map((post) => <Post key={post._id} data={post} />)
             : ""}
         </div>
       )}

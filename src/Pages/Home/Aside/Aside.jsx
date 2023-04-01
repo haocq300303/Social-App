@@ -1,16 +1,18 @@
+import { useSelector } from "react-redux";
 import classnames from "classnames/bind";
 import styles from "./Aside.module.scss";
 import AsideContact from "./AsideContact";
-import AsideRequest from "./AsideRequest";
+import AsideSuggested from "./AsideSuggested";
 
 const cx = classnames.bind(styles);
 const Aside = () => {
-   return (
-      <div className={cx("wrapper")}>
-         <AsideRequest />
-         <AsideContact />
-      </div>
-   )
+  const currentUser = useSelector((state) => state.user.currentUser.values);
+  return (
+    <div className={cx("wrapper")}>
+      <AsideSuggested />
+      {currentUser?.followers?.length > 0 && <AsideContact />}
+    </div>
+  );
 };
 
 export default Aside;

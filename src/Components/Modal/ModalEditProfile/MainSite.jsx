@@ -96,15 +96,20 @@ const MainSite = ({ setSite, setOpen }) => {
           </div>
         </div>
         <div className={cx("main-intro")}>
-          {dataProfile.map((item, index) => (
-            <div key={index} className={cx("intro-item")}>
-              <div className={cx("intro-item_icon")}>{item.icon}</div>
-              <div className={cx("intro-item_text")}>
-                {item.title}
-                <span>{arr[index]}</span>
-              </div>
-            </div>
-          ))}
+          {dataProfile.map((item, index) => {
+            if (arr[index]) {
+              return (
+                <div key={index} className={cx("intro-item")}>
+                  <div className={cx("intro-item_icon")}>{item.icon}</div>
+                  <div className={cx("intro-item_text")}>
+                    {item.title}
+                    <span>{arr[index]}</span>
+                  </div>
+                </div>
+              );
+            }
+            return <></>;
+          })}
         </div>
       </div>
       <div className={cx("main-item")}>

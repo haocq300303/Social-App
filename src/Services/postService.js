@@ -43,7 +43,13 @@ const deletePost = (id, userId) => {
 const uploadImage = (data) => {
   return axios.post(
     "https://api.cloudinary.com/v1_1/dsvfqgd20/image/upload",
-    data
+    data,
+    {
+      transformRequest: (data, headers) => {
+        delete headers.Token;
+        return data;
+      },
+    }
   );
 };
 
@@ -53,6 +59,10 @@ const getAllPostForOneUser = (userId) => {
 
 const getAllImage = (idUser) => {
   return axios.get(`/api/posts/images/${idUser}`);
+};
+
+const getSuggestedPost = () => {
+  return axios.get("api/posts/suggested/all");
 };
 
 export {
@@ -65,4 +75,5 @@ export {
   uploadImage,
   getAllPostForOneUser,
   getAllImage,
+  getSuggestedPost,
 };

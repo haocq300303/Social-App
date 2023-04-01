@@ -1,7 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getPosts } from "../../../Features/postsSlice";
 import { dataShortcuts, dataNav } from "../../../Utils/dataItem";
 import { CgMenuGridO } from "react-icons/cg";
 import { BsLink45Deg } from "react-icons/bs";
@@ -11,14 +8,6 @@ import styles from "./Slidebar.module.scss";
 const cx = classnames.bind(styles);
 
 const SlidebarNav = () => {
-  const { _id } = useSelector((state) => state.user.currentUser.values);
-  const dispatch = useDispatch();
-  const handleClick = (action) => {
-    if (action === "Home") {
-      dispatch(getPosts(_id));
-    }
-  };
-
   return (
     <div className={cx("slidebar-nav")}>
       <div className={cx("nav-menu")}>
@@ -35,7 +24,6 @@ const SlidebarNav = () => {
             className={(navData) =>
               navData.isActive ? cx("nav-link", "active") : cx("nav-link")
             }
-            onClick={handleClick(item.title)}
           >
             <div className={cx("icon")}>{item.icon}</div>
             <p className={cx("title")}>{item.title}</p>

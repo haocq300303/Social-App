@@ -11,27 +11,34 @@ const ProfileFriends = ({ data, currentUserId }) => {
     <div className={cx("friends")}>
       <h3 className={cx("friends-title")}>Followers</h3>
       <div className={cx("friends-body")}>
-        {data.map((item, index) => (
-          <div key={index} className={cx("friend-item")}>
-            <div className={cx("item-avatar")}>
+        {data?.length > 0 ? (
+          data.map((item, index) => (
+            <div key={index} className={cx("friend-item")}>
+              <div className={cx("item-avatar")}>
+                <Link
+                  to={
+                    currentUserId === item._id
+                      ? `/profile`
+                      : `/profileUser/${item._id}`
+                  }
+                >
+                  <img
+                    src={item.avatar ? item.avatar : noAvatar}
+                    alt="avatar"
+                  />
+                </Link>
+              </div>
               <Link
-                to={
-                  currentUserId === item._id
-                    ? `/profile`
-                    : `/profileUser/${item._id}`
-                }
+                to={`/profileUser/${item._id}`}
+                className={cx("item-username")}
               >
-                <img src={item.avatar ? item.avatar : noAvatar} alt="avatar" />
+                {item.username}
               </Link>
             </div>
-            <Link
-              to={`/profileUser/${item._id}`}
-              className={cx("item-username")}
-            >
-              {item.username}
-            </Link>
-          </div>
-        ))}
+          ))
+        ) : (
+          <h4 className={cx("message-notdata")}>No Followers yet</h4>
+        )}
       </div>
     </div>
   );

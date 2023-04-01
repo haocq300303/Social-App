@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: "https://backend-socialapp.vercel.app",
 });
 
 instance.interceptors.request.use(

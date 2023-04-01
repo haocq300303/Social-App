@@ -227,4 +227,13 @@
     text-align: center;
     padding: 10px 0 20px;
   }
+
+  .message-private {
+    padding: 20px 0 10px;
+    @extend #flex-center;
+    color: red;
+    font-size: 1.6rem;
+    font-weight: 500;
+    font-family: var(--font-roboto);
+  }
 }

@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+  width: 100%;
+  width: 900px;
+}
+
+.feed {
+  position: relative;
+  width: 630px;
+  height: calc(100vh - 76px);
+  padding: 1px;
+}
+
+.aside {
+  width: 240px;
+  height: calc(100vh - 76px);
+  margin-left: 30px;
+  position: fixed;
+  top: 76px;
+  right: 198px;
+  z-index: 1;
+}
+
+.feed-title {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 1px 3px 0px, rgb(0 0 0 / 6%) 0px 1px 2px 0px;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}

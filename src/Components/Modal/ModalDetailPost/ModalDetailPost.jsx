@@ -1,5 +1,6 @@
 import { Modal, Box, CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import AvatarUser from "../../Avatar/Avatar";
 import { CgClose } from "react-icons/cg";
@@ -33,12 +34,14 @@ const ModalDetailPost = ({
   comments,
   currentUser,
   setComments,
+  setOpenModalLogin,
   countComment,
   open,
   setOpen,
   userId,
   isLoadingComment,
 }) => {
+  const isLogged = useSelector((state) => state.user.isLogged);
   const time = formatDatePost(data.createdAt);
   return (
     <Modal
@@ -113,20 +116,27 @@ const ModalDetailPost = ({
               </div>
             </div>
             <div className={cx("comments")}>
-              <div className={cx("write-comments")}>
-                <AvatarUser
-                  src={currentUser.avatar ? currentUser.avatar : noAvatar}
-                  isActive={true}
-                />
-                <input
-                  type="text"
-                  className={cx("input-comments")}
-                  placeholder="Write a comments..."
-                />
-                <div className={cx("icon-send")}>
-                  <BiSend />
+              {isLogged ? (
+                <div className={cx("write-comments")}>
+                  <AvatarUser
+                    src={currentUser.avatar ? currentUser.avatar : noAvatar}
+                    isActive={true}
+                  />
+                  <input
+                    type="text"
+                    className={cx("input-comments")}
+                    placeholder="Write a comments..."
+                  />
+                  <div className={cx("icon-send")}>
+                    <BiSend />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className={cx("write-comments", "message")}>
+                  Hãy đăng nhập để có thể bình luận!!
+                </div>
+              )}
+
               <div className={cx("list-comments")}>
                 {isLoadingComment ? (
                   <div className={cx("icon-loading")}>
@@ -141,6 +151,7 @@ const ModalDetailPost = ({
                       idPost={data._id}
                       setComments={setComments}
                       isModalDetailPost={true}
+                      setOpenModalLogin={setOpenModalLogin}
                     />
                   ))
                 ) : (
@@ -165,6 +176,7 @@ ModalDetailPost.propTypes = {
   open: PropTypes.bool,
   isLoadingComment: PropTypes.bool,
   setOpen: PropTypes.func,
+  setOpenModalLogin: PropTypes.func,
   userId: PropTypes.string,
   comments: PropTypes.array,
   setComments: PropTypes.func,
